@@ -1,0 +1,33 @@
+stages:
+    - deploy_hmg
+    - deploy_prd
+    
+deploy-hmg:
+  stage: deploy_hmg
+  environment:
+    name: env-hmg
+    url: fe-adm.magali-hmg.io
+  script:
+    - sshpass -V
+    - export SSHPASS=$SSH_PASS 
+    - sshpass -e ssh -o stricthostkeychecking=no root@fe-adm.magali-hmg.io "cd /data/var/www/fe-adm && git reset --hard && git pull origin dev && exit"
+  tags:
+    - deploy
+  only:
+    - dev
+    
+deploy-prd:
+  stage: deploy_prd
+  when: manual
+  environment:
+    name: env-prd
+    url: fe-adm.magali.io
+  script:
+    - sshpass -V
+    - export SSHPASS=$SSH_PASS 
+    - sshpass -e ssh -o stricthostkeychecking=no root@fe-adm.magali.io "cd /var/www/fe-adm && git reset --hard && git pull origin dev && exit"
+  tags:
+    - deploy
+  only:
+    - dev    
+  
