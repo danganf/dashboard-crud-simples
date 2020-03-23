@@ -6,7 +6,9 @@ return [
 
     'x_header_cache_time' => 'x-cache-result-time',
 
-    'url_secure' => env('URL_SECURE', 1),
+    'url_secure' => env('URL_SECURE', 0),
+
+    'url_api_endpoint' => env('URL_API_ENDPOINT', 'http://dashboard.test:8080/api/'),
 
     /*
     |--------------------------------------------------------------------------

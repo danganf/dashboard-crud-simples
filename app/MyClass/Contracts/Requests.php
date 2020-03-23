@@ -6,7 +6,7 @@ use Danganf\MyClass\Curl;
 
 abstract class Requests {
 
-    protected $curl, $pathUrl, $table, $nameKeyPaginator = 'x-paginator-df', $isPaginate = false;
+    protected $curl, $pathUrl, $serviceName, $isPaginate = false;
     private $header = [], $returnHeader = null, $requestCode=400, $msgErro;
 
     public function __construct(Curl $curl)
@@ -16,15 +16,10 @@ abstract class Requests {
 
     public function setPathUrl($url,$overWrite=true){
         if(empty($this->pathUrl) || $overWrite) {
-            $this->pathUrl = $url . $this->table;
+            $this->pathUrl = $url . $this->serviceName;
         } else {
-            $this->pathUrl .= $this->table;
+            $this->pathUrl .= $this->serviceName;
         }
-    }
-
-    public function setTable($table){
-        $this->table = $table;
-        return $this;
     }
 
     public function setContentType($type){
@@ -35,10 +30,6 @@ abstract class Requests {
     public function send($host,$options){
 
         $this->msgErro = null;
-
-        if( $this->isPaginate ){
-            $options['returnHeaders'] = [$this->nameKeyPaginator];
-        }
 
         \LogDebug::request('',[
             'host'       => $host,

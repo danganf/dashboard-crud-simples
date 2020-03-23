@@ -127,7 +127,7 @@ function implodeArrayQueryString($array){
 
 function getVariablesFilter(\Illuminate\Http\Request $request){
     $all = $request->all();
-    array_forget($all, ['store_id','api_key','company_id','cssFiles','jsFiles','routeName','company_uid']);
+    array_forget($all, ['cssFiles','jsFiles','routeName']);
     return $all;
 }
 

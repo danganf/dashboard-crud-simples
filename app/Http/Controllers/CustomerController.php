@@ -2,28 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\MyClass\FactoryApis;
 use App\MyClass\Traits\OpenViewController;
-use App\Repositories\CustomerRepository;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
     use OpenViewController;
 
-    private $title    = 'Cliente';
+    private $title    = 'Clientes';
     private $pathView = 'customer';
     private $subtitle;
 
-    public function index( Request $request, CustomerRepository $customerRepository ){
+    public function index( Request $request, FactoryApis $factoryApis ){
 
-        $sectors = $factoryApis->get('customer');
+        $this->subtitle = 'Clientes';
 
-        $this->subtitle = 'Cliente';
+        $filtersTmp           = getVariablesFilter($request);
+        $filtersTmp['limit']  = ( array_get( $filtersTmp, 'limit', 10) );
+        $filtersTmp['order']  = 'name';
+
+        $factoryApis->setFilters( $filtersTmp );
+        $result = $factoryApis->get('customer');
 
         return $this->openView([
-            'sectors'        => !empty( $sectors ) ? $sectors['RESULT'] : [],
+            'results'        => array_pull( $result, 'data' ),
             'filters'        => $filtersTmp,
-            'paginator'      => buildUrlPaginator($filtersTmp,$sectors),
+            'paginator'      => $result,
         ]);
     }
 
