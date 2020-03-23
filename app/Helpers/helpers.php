@@ -22,6 +22,40 @@ function route_is_input(){
     return strpos( getRouteName(), 'input') === FALSE ? FALSE : TRUE;
 }
 
+function convert_sn_bool($char){
+    $char = trim( $char );
+    return empty( $char ) ? null : ($char == 'S' || $char == 1 ? 1 : 0);
+}
+
+
+function format_paginate( $resultPaginateModel ){
+    if( empty( $resultPaginateModel ) ){
+        $resultPaginateModel = [];
+    } else{
+
+        if( !is_array( $resultPaginateModel ) ) {
+            $resultPaginateModel = $resultPaginateModel->toArray();
+        }
+
+        array_pull( $resultPaginateModel, 'from' );
+        array_pull( $resultPaginateModel, 'first_page_url' );
+        $lastPage = array_pull( $resultPaginateModel, 'last_page_url' );
+        $nextPage = array_pull( $resultPaginateModel, 'next_page_url' );
+        $prevPage = array_pull( $resultPaginateModel, 'prev_page_url' );
+        $path     = array_pull( $resultPaginateModel, 'path' );
+        $resultPaginateModel['prev_page'] = null;
+        $resultPaginateModel['next_page'] = null;
+
+        if( !empty( $nextPage ) ){$resultPaginateModel['next_page'] = (int)str_replace( $path.'?page=', '', $nextPage);}
+        if( !empty( $prevPage ) ){$resultPaginateModel['prev_page'] = (int)str_replace( $path.'?page=', '', $prevPage);}
+
+        $resultPaginateModel['limit'] = array_pull( $resultPaginateModel, 'per_page' );
+    }
+
+    return $resultPaginateModel;
+}
+
+
 function create_section_product_addition( &$array, $onlyOrder=false ){
 
     $isAdditional = false;

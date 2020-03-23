@@ -20,19 +20,18 @@ class CustomerController
      */
     public function index($id='', Request $request){
 
-        $gateData = $this->pdvApi->employee();
-        if( empty( $id ) )
-            $result = $gateData->filter($request->all());
-        else
-            $result = $gateData->getById($id);
-
-        $paginator = [];
-        $metas     = $gateData->getPaginator(true);
-        if( !empty( $metas ) ) {
-            $paginator = $metas;
+        if( empty( $id ) ) {
+            $result = $this->repository->filter($request->all());
+            $result = format_paginate($result);
+        }
+        else {
+            $result = $this->repository->find($id);
+            if (!$result->fails()) {
+                $result = $result->toArray();
+            }
         }
 
-        return msgJson( $result, 200, $paginator );
+        return msgJson( $result );
     }
 
     /**

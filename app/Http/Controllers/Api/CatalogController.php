@@ -20,19 +20,18 @@ class CatalogController
      */
     public function index( $sku='', Request $request){
 
-        $gateData = $this->pdvApi->employee();
-        if( empty( $id ) )
-            $result = $gateData->filter($request->all());
-        else
-            $result = $gateData->getById($id);
-
-        $paginator = [];
-        $metas     = $gateData->getPaginator(true);
-        if( !empty( $metas ) ) {
-            $paginator = $metas;
+        if( empty( $sku ) ) {
+            $result = $this->repository->filter($request->all());
+            $result = format_paginate($result);
+        }
+        else {
+            $result = $this->repository->findBy('sku', $sku);
+            if( !$result->fails() ){
+                $result = $result->toArray();
+            }
         }
 
-        return msgJson( $result, 200, $paginator );
+        return msgJson( $result );
     }
 
     /**

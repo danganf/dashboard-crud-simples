@@ -12,6 +12,38 @@ class ProductRepository extends RepositoryAbstract
         return $this;
     }
 
+    public function filter( $filterArray = [] ){
+
+        $limit = array_get( $filterArray, 'limit', 0 );
+        $limit = !empty( $limit ) ? $limit : 25;
+
+        $where  = '';
+
+        if( !empty( trim( array_get( $filterArray, 'sku', '' ) ) ) ){
+            $this->setFilter($where, "sku='".$filterArray['sku']."'");
+        }
+        if( !empty( trim( array_get( $filterArray, 'name', '' ) ) ) ){
+            $this->setFilter($where, "name like '%".$filterArray['name']."%'");
+        }
+        if( !empty( trim( array_get( $filterArray, 'status', '' ) ) ) ){
+            $filterValue = convert_sn_bool( array_get( $filterArray, 'status', '' ) );
+            if( !is_null( $filterValue ) ) {
+                $this->setFilter($where, 'status=' . $filterValue);
+            }
+        }
+
+        $querie = $this->getModel();
+
+        if( !empty( $where ) ){
+            $querie = $querie->whereRaw( trim( $where ) );
+        }
+
+        $result = $querie->paginate( $limit );
+
+        return $result->isNotEmpty() ? $result->toArray() : [];
+
+    }
+
     public function createOrUpdate(JsonAbstract $jsonValues, $sku=null)
     {
         $return = FALSE;
