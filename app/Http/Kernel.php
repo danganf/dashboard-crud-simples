@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\ACLs;
+use App\Http\Middleware\CheckContentBodyJson;
 use App\Http\Middleware\GetCoreConfig;
 use App\Http\Middleware\GetFilter;
 use App\Http\Middleware\LoadReleaseNumber;
@@ -63,13 +64,14 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'               => \Illuminate\Auth\Middleware\Authenticate::class,
-        'auth.basic'         => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings'           => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'can'                => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'              => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle'           => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verify.session'     => VerifyUser::class,
-        'dependency.files'   => \App\Http\Middleware\DependencyFiles::class,
+        'auth'             => \Illuminate\Auth\Middleware\Authenticate::class,
+        'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings'         => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'can'              => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'            => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verify.session'   => VerifyUser::class,
+        'dependency.files' => \App\Http\Middleware\DependencyFiles::class,
+        'check.json'       => CheckContentBodyJson::class,
     ];
 }

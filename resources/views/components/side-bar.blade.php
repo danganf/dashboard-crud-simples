@@ -3,7 +3,11 @@
         <li class=" nav-item" id="main"><a href="{{route('main')}}"><i class="la la-home"></i><span class="menu-title">Home</span></a></li>
 
         <li class="nav-item" id="catalog">
-            <a href="#"><i class="icon-layers"></i><span class="menu-title">Catálogo</span></a>
+            <a href="{{route('customer.index')}}"><i class="icon-layers"></i><span class="menu-title">Clientes</span></a>
+        </li>
+
+        <li class="nav-item" id="catalog">
+            <a href={{route('catalog.index')}}#"><i class="icon-layers"></i><span class="menu-title">Catálogo</span></a>
         </li>
 
         <li class="division"><hr></li>

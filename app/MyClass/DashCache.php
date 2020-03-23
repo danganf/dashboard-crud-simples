@@ -2,8 +2,8 @@
 
 namespace App\MyClass;
 
+use Danganf\MyClass\AbstractDefaultCache;
 use Illuminate\Cache\Repository;
-use IntercaseDefault\MyClass\AbstractDefaultCache;
 
 class DashCache extends AbstractDefaultCache
 {

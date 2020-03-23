@@ -2,15 +2,6 @@
 
 return [
 
-    'url_magali'          => env('URL_MAGALI'     , 'http://df-api.magali.io/api/v2/'),
-    'url_pdv'             => env('URL_PDV'        , 'http://df-api.magali.io/api/v2/pdv_'),
-    'proxy_df_site'       => env('PROXY_DF_SITE'  , 'http://df-api.magali.io'),
-    'proxy_df_api'        => env('PROXY_DF_API'   , 'http://df-api.magali.io/api/v2/'),
-    'api_key_df'          => env('API_KEY_DF'     , 'b15c5ed04d80841fdf5500309b91c0dfef09026c1465f7a303dd4958244ca6a3'),
-    'endpoint_print_nfce' => env('API_PRINT_NFCE' , 'https://cupomfiscal.saladero.app/printNFCe.php?source=2&order_id=_ORDER_ID_&token=7d6a17d3-367c-4417-9c9e-9d5c14891b26'),
-
-    'url_develop' => 'http://intercase.com.br',
-
     'x_header_cache_name' => 'x-cache-result',
 
     'x_header_cache_time' => 'x-cache-result-time',
@@ -151,8 +142,6 @@ return [
     |
     */
 
-    'manufacture' => [ 'PRÓPRIA', 'REVENDA', 'OUTROS' ],
-
     'providers' => [
 
         /*
@@ -243,7 +232,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'DashCache' => \App\Facades\DashCacheFacades::class,
+        'DashCache' => App\Facades\DashCacheFacades::class,
 
     ],
 

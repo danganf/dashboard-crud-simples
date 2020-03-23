@@ -247,3 +247,17 @@ function format_html_paginate( $paginator, $links = 3 ) {
 
     return $html;
 }
+
+function search_like_in_array($array, $search)
+{
+    $return = [];
+    if( !empty( $search ) && !is_array( $search ) ) {
+        foreach ($array as $key => $value) {
+            if (strpos($value, $search) !== FALSE) { // Yoshi version
+                $return[] = $value;
+            }
+        }
+    }
+    return $return;
+}
+

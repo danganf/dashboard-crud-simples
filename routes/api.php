@@ -26,6 +26,15 @@ Route::group( [ 'namespace' => 'Api' ], function () {
         return msgSuccessJson('OK');
     });
 
+    Route::prefix('customer')->name('customer.')->group(function () {
+        Route::get('/avaible' , 'CustomerController@getAvaible' )->name('avaible');
+        Route::get('/{id?}'   , 'CustomerController@index' )->name('filter');
+        Route::post('/'       , 'CustomerController@create' )->middleware('check.json')->name('save');
+        Route::put('/{id}'    , 'CustomerController@create' )->middleware('check.json')->name('save');
+        Route::delete('/{id}' , 'CustomerController@delete' )->name('delete');
+    });
+
+
     Route::any('/{method}/{destiny}/{path?}', 'RequestController@action' )->name('factory');
 
 });

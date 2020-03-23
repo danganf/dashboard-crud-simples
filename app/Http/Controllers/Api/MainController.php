@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\MyClass\FactoryApis;
 use App\Repositories\UserRepository;
+use Danganf\MyClass\LogDebug;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -52,13 +52,5 @@ class MainController extends Controller
     public function logoff(Request $request){
         $request->session()->flush();
         return redirect()->route('auth.index');
-    }
-
-    public function printNFC( $orderID, Curl $curl ){
-        $url    = str_replace( '_ORDER_ID_', $orderID, config('app.endpoint_print_nfce') );
-        $return = $curl->send( $url );
-        if(  $return['HTTP_CODE'] === 200 ){ return msgSuccessJson(  'OK' ); }
-        return msgErroJson('Ocorreu um problema ao imprimir a NFCe');
-
     }
 }

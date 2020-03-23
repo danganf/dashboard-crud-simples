@@ -12,11 +12,20 @@ Route::group( [ 'middleware' => [ 'verify.session', 'dependency.files' ] ], func
 
     Route::get('/', 'MainController@index' )->name('main');
 
-    Route::group( [ 'as' => 'purchase_orders.', 'prefix' => 'purchase-orders' ], function () {
-        Route::get('/'           , 'PurchaseOrderController@index' )->name('index');
-        Route::get('/monitor'    , 'PurchaseOrderController@monitor' )->name('monitor');
-        Route::get('/new'        , 'PurchaseOrderController@new' )->name('new');
-        Route::get('/edit/{code}', 'PurchaseOrderController@edit' )->name('edit');
+    Route::group( [ 'as' => 'catalog.', 'prefix' => 'catalog' ], function () {
+
+        Route::get('/'         , 'CatalogController@index' )->name('index');
+        Route::get('/new'      , 'CatalogController@new' )->name('new');
+        Route::get('/edit/{id}', 'CatalogController@edit' )->name('edit');
+
+    });
+
+    Route::group( [ 'as' => 'customer.', 'prefix' => 'customer' ], function () {
+
+        Route::get('/'         , 'CustomerController@index' )->name('index');
+        Route::get('/new'      , 'CustomerController@new' )->name('new');
+        Route::get('/edit/{id}', 'CustomerController@edit' )->name('edit');
+
     });
 
 });

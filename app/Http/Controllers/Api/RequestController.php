@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\MyClass\FactoryApis;
+use Danganf\MyClass\Validator;
 use Illuminate\Http\Request;
-use IntercaseDefault\MyClass\Validator;
 
 class RequestController extends Controller
 {

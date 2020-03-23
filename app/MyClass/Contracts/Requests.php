@@ -2,7 +2,7 @@
 
 namespace App\MyClass\Contracts;
 
-use IntercaseDefault\MyClass\Curl;
+use Danganf\MyClass\Curl;
 
 abstract class Requests {
 
@@ -12,7 +12,6 @@ abstract class Requests {
     public function __construct(Curl $curl)
     {
         $this->curl = $curl;
-        $this->initHeader();
     }
 
     public function setPathUrl($url,$overWrite=true){
@@ -26,10 +25,6 @@ abstract class Requests {
     public function setTable($table){
         $this->table = $table;
         return $this;
-    }
-
-    public function setHeaderDF(){
-        $this->setHeader('X-DreamFactory-API-Key', config('app.api_key_df'));
     }
 
     public function setContentType($type){
@@ -108,15 +103,6 @@ abstract class Requests {
         $return = $this->returnHeader;
         $this->returnHeader = null;
         return $return;
-    }
-
-    private function initHeader(){
-        $sessionValues = SessionOpen('get');
-        $tokenLabel    = array_get( $sessionValues, 'token_label' );
-        $tokenValue    = array_get( $sessionValues, 'token_value' );
-        if( !empty( $tokenLabel ) && !empty( $tokenValue ) ){
-            $this->setHeader($tokenLabel, $tokenValue);
-        }
     }
 
     public function getHeader(){
