@@ -12,7 +12,7 @@ class DummyClass extends RepositoryAbstract
         return $this;
     }
 
-    public function createOrUpdate(JsonAbstract $jsonValues){
+    public function createOrUpdate( JsonAbstract $jsonValues, $id ){
 
     }
 }

@@ -16,14 +16,4 @@ class AuthController extends Controller
         $request->session()->flush();
         return redirect()->route('auth.index');
     }
-
-    public function authByToken($token=null, PdvApi $pdvApi, Request $request, FactoryApis $factoryApis){
-        $return = $factoryApis->get('employee', 'auth-by-token@' . $token );
-        if( !empty( $return ) ){
-            $request->session()->flush();
-            $pdvApi->employee()->startSession( $return, $request, $factoryApis );
-            return redirect()->route('main');
-        }
-        return redirect()->route('auth.index');
-    }
 }

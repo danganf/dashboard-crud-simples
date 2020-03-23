@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Repositories\CustomerRepository;
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 
-class CustomerController
+class CatalogController
 {
     private $repository;
-    public function __construct( CustomerRepository $customerRepository )
+    public function __construct( ProductRepository $productRepository )
     {
-        $this->repository = $customerRepository;
+        $this->repository = $productRepository;
     }
 
     /**
-     * @param string $id
+     * @param string $sku
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index($id='', Request $request){
+    public function index( $sku='', Request $request){
 
         $gateData = $this->pdvApi->employee();
         if( empty( $id ) )
@@ -36,17 +36,17 @@ class CustomerController
     }
 
     /**
-     * @param null $id
+     * @param null $sku
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create($id=null, Request $request){
+    public function create( $sku=null, Request $request){
 
         $json = $request->get('json');
 
-        if( $request->method() == 'POST' ){$id=null;}
+        if( $request->method() == 'POST' ){$sku=null;}
 
-        if( $this->repository->createOrUpdate($json,$id) === TRUE ) {
+        if( $this->repository->createOrUpdate( $json, $sku ) === TRUE ) {
             return msgSuccessJson('OK', [], $request->method() === 'POST' ? 201 : 200 );
         } else {
             $msg = $this->repository->getMsgError();
@@ -56,15 +56,30 @@ class CustomerController
     }
 
     /**
-     * @param $id
+     * @param $sku
      * @return \Illuminate\Http\JsonResponse
      */
-    public function delete($id){
+    public function delete($sku){
 
-        $id  = (int) $id;
         $msg = \Lang::get('default.register_not_exist');
 
-        if( $this->repository->delete( $id ) ){
+        if( $this->repository->delete( $sku, 'sku' ) ){
+            return msgSuccessJson('OK');
+        }
+
+        return msgErroJson($msg);
+    }
+
+    /**
+     * @param $sku
+     * @param $qtd
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function stockIn( $sku, $qtd ){
+
+        $msg = \Lang::get('default.register_not_exist');
+
+        if( $this->repository->stockIn( $sku, $qtd ) ){
             return msgSuccessJson('OK');
         }
 
