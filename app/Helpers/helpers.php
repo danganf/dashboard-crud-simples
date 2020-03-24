@@ -295,3 +295,14 @@ function search_like_in_array($array, $search)
     return $return;
 }
 
+function format_hmt_sort( $local, $filters ){
+    $icon = 'fa-sort';
+    $dir  = array_get( $filters, 'dir', 'asc' );
+
+    if( $local == array_get( $filters, 'sort', '' ) ){
+        $icon .= '-' . ( $dir == 'asc' ? 'up' : 'down' );
+        $dir   =  $dir == 'asc' ? 'desc' : 'asc';
+    }
+    return '<a href="?sort='.$local.'&dir='.$dir.'"><i class="fa '.$icon.' i-sort"></i></a>';
+}
+

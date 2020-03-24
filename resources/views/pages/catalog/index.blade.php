@@ -22,11 +22,11 @@
                             <table class="table table-hover table-xl mb-0">
                                 <thead>
                                 <tr>
-                                    <th class="border-top-0">Nome</th>
-                                    <th class="border-top-0">SKU</th>
-                                    <th class="border-top-0">Preço</th>
-                                    <th class="border-top-0">Em estoque</th>
-                                    <th class="border-top-0">Status</th>
+                                    <th class="border-top-0">Nome {!! format_hmt_sort( 'name', $filters ) !!}</th>
+                                    <th class="border-top-0">SKU {!! format_hmt_sort( 'sku', $filters ) !!}</th>
+                                    <th class="border-top-0">Preço {!! format_hmt_sort( 'price', $filters ) !!}</th>
+                                    <th class="border-top-0">Em estoque {!! format_hmt_sort( 'stock', $filters ) !!}</th>
+                                    <th class="border-top-0">Status {!! format_hmt_sort( 'status', $filters ) !!}</th>
                                     <th class="border-top-0 text-right">Ação</th>
                                 </tr>
                                 </thead>

@@ -22,11 +22,11 @@
                             <table class="table table-hover table-xl mb-0">
                                 <thead>
                                 <tr>
-                                    <th class="border-top-0">Nome</th>
-                                    <th class="border-top-0">E-mail</th>
-                                    <th class="border-top-0">Documento</th>
-                                    <th class="border-top-0">Telefone</th>
-                                    <th class="border-top-0">Status</th>
+                                    <th class="border-top-0">Nome {!! format_hmt_sort( 'name', $filters ) !!}</th>
+                                    <th class="border-top-0">E-mail {!! format_hmt_sort( 'email', $filters ) !!}</th>
+                                    <th class="border-top-0">Documento {!! format_hmt_sort( 'document', $filters ) !!}</th>
+                                    <th class="border-top-0">Telefone {!! format_hmt_sort( 'phone', $filters ) !!}</th>
+                                    <th class="border-top-0">Status {!! format_hmt_sort( 'status', $filters ) !!}</th>
                                     <th class="border-top-0 text-right">Ação</th>
                                 </tr>
                                 </thead>

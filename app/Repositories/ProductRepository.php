@@ -17,6 +17,9 @@ class ProductRepository extends RepositoryAbstract
         $limit = array_get( $filterArray, 'limit', 0 );
         $limit = !empty( $limit ) ? $limit : 25;
 
+        $order  = array_get( $filterArray, 'sort'   , 'id' );
+        $order .= ' '.array_get( $filterArray, 'dir', 'asc' );
+
         $where  = '';
 
         if( !empty( trim( array_get( $filterArray, 'search', '' ) ) ) ){
@@ -35,7 +38,7 @@ class ProductRepository extends RepositoryAbstract
             }
         }
 
-        $querie = $this->getModel();
+        $querie = $this->getModel()->OrderByRaw( $order );
 
         if( !empty( $where ) ){
             $querie = $querie->whereRaw( trim( $where ) );

@@ -7,7 +7,8 @@ $('.btn-filter').click(function () {
     if( !is_array( $limit ) ) echo "$('*[name=limit]').val('".$limit."');";
 
     array_pull( $filters, 'offset' );
-    array_pull( $filters, 'order' );
+    array_pull( $filters, 'sort' );
+    array_pull( $filters, 'dir' );
     array_pull( $filters, 'reset' );
     $entrouFilter = false;
 

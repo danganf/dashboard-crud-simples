@@ -14,6 +14,9 @@ class CustomerRepository extends RepositoryAbstract
 
     public function filter( $filterArray = [] ){
 
+        $order  = array_get( $filterArray, 'sort'   , 'id' );
+        $order .= ' '.array_get( $filterArray, 'dir', 'asc' );
+
         $limit = array_get( $filterArray, 'limit', 0 );
         $limit = !empty( $limit ) ? $limit : 25;
 
@@ -41,7 +44,7 @@ class CustomerRepository extends RepositoryAbstract
             }
         }
 
-        $querie = $this->getModel();
+        $querie = $this->getModel()->OrderByRaw( $order );
 
         if( !empty( $where ) ){
             $querie = $querie->whereRaw( trim( $where ) );

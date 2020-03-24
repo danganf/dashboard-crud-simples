@@ -18,8 +18,10 @@ class CatalogController extends Controller
 
         $this->subtitle = 'Catalogo';
 
-        $filtersTmp           = getVariablesFilter($request);
-        $filtersTmp['limit']  = ( array_get( $filtersTmp, 'limit', 10) );
+        $filtersTmp          = getVariablesFilter($request);
+        $filtersTmp['limit'] = ( array_get( $filtersTmp, 'limit', 10) );
+        $filtersTmp['sort']  = ( array_get( $filtersTmp, 'sort', 'name') );
+        $filtersTmp['dir']   = ( array_get( $filtersTmp, 'dir', 'asc') );
 
         $factoryApis->setFilters( $filtersTmp );
         $result = $factoryApis->get('catalog');
