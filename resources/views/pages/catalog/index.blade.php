@@ -22,7 +22,6 @@
                             <table class="table table-hover table-xl mb-0">
                                 <thead>
                                 <tr>
-                                    <th class="border-top-0" style="width: 5%">#</th>
                                     <th class="border-top-0">Nome</th>
                                     <th class="border-top-0">SKU</th>
                                     <th class="border-top-0">Preço</th>
@@ -34,7 +33,6 @@
                                 <tbody class="value-last-orders">
                                 @foreach( $results AS $row )
                                     <tr>
-                                        <td class="text-truncate">{{$row['id']}}</td>
                                         <td class="text-truncate">
                                             <a href="{{route('catalog.edit',[$row['id']])}}">
                                                 {{$row['name']}}

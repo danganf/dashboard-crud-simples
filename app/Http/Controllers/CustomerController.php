@@ -25,7 +25,7 @@ class CustomerController extends Controller
         $result = $factoryApis->get('customer');
 
         return $this->openView([
-            'results'        => array_pull( $result, 'data' ),
+            'results'        => array_pull( $result, 'data', [] ),
             'filters'        => $filtersTmp,
             'paginator'      => $result,
         ]);

@@ -21,6 +21,18 @@
                             </div>
                             <div class="col-xl-2">
                                 <div class="form-group">
+                                    <label for="projectinput1">Por documento</label>
+                                    <input class="form-control" name="document">
+                                </div>
+                            </div>
+                            <div class="col-xl-2">
+                                <div class="form-group">
+                                    <label for="projectinput1">Por telefone</label>
+                                    <input class="form-control" name="phone">
+                                </div>
+                            </div>
+                            <div class="col-xl-2">
+                                <div class="form-group">
                                     <label for="projectinput1">Por status</label>
                                     <select class="form-control" name="status">
                                         <option value="">Tudo</option>

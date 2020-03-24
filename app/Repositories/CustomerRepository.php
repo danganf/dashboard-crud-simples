@@ -23,7 +23,10 @@ class CustomerRepository extends RepositoryAbstract
             $this->setFilter($where, "email like '%".$filterArray['search']."%' or name like '%".$filterArray['search']."%'");
         }
         if( !empty( trim( array_get( $filterArray, 'document', '' ) ) ) ){
-            $this->setFilter($where, "document='".$filterArray['document']."'");
+            $this->setFilter($where, "document='".only_number( $filterArray['document'] )."'");
+        }
+        if( !empty( trim( array_get( $filterArray, 'phone', '' ) ) ) ){
+            $this->setFilter($where, "phone='".only_number( $filterArray['phone'] )."'");
         }
         if( !empty( trim( array_get( $filterArray, 'name', '' ) ) ) ){
             $this->setFilter($where, "name like '%".$filterArray['name']."%'");
