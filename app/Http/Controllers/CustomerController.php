@@ -35,36 +35,24 @@ class CustomerController extends Controller
 
     public function new(FactoryApis $factoryApis){
 
-        $isInput    = route_is_input();
-        $routeSufix = $isInput ? '_input' : '';
-
-        $this->subtitle = 'Novo setor';
+        $this->subtitle = 'Novo Cliente';
         return $this->openView([
-            'printers'   => $factoryApis->get('printer'),
-            'btn'        => route('register.sector.index'),
-            'isInput'    => $isInput,
-            'routeSufix' => $routeSufix,
+            'btn' => route('customer.index'),
         ], 'view');
     }
 
     public function edit($id,FactoryApis $factoryApis){
-        $this->subtitle = 'Editar setor';
+        $this->subtitle = 'Editar Cliente';
 
-        $data = $factoryApis->get('sector',$id);
+        $data = $factoryApis->get('customer',$id);
 
         if( empty( $data ) ) {
-            abort(404, 'Setor não encontrado');
+            abort(404, 'Cliente não encontrado');
         }
-
-        $isInput    = route_is_input();
-        $routeSufix = $isInput ? '_input' : '';
 
         return $this->openView(
             array_merge( $data , [
-                'printers'   => $factoryApis->get('printer'),
-                'isInput'    => $isInput,
-                'routeSufix' => $routeSufix,
-                'btn'        => route('register.sector.index')
+                'btn'        => route('customer.index')
             ]),
             'view'
         );

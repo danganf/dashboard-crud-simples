@@ -31,6 +31,8 @@ class CatalogController
             $result = $this->repository->findBy('sku', $sku);
             if( !$result->fails() ){
                 $result = $result->toArray();
+                $result = convert_price_in_row( $result );
+                $result = convert_data_in_row( $result );
             }
         }
 

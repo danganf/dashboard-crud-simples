@@ -14,9 +14,9 @@ Route::group( [ 'middleware' => [ 'verify.session', 'dependency.files' ] ], func
 
     Route::group( [ 'as' => 'catalog.', 'prefix' => 'catalog' ], function () {
 
-        Route::get('/'         , 'CatalogController@index' )->name('index');
-        Route::get('/new'      , 'CatalogController@new' )->name('new');
-        Route::get('/edit/{id}', 'CatalogController@edit' )->name('edit');
+        Route::get('/'          , 'CatalogController@index' )->name('index');
+        Route::get('/new'       , 'CatalogController@new' )->name('new');
+        Route::get('/edit/{sku}', 'CatalogController@edit' )->name('edit');
 
     });
 

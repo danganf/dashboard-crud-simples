@@ -34,7 +34,7 @@
                                 @foreach( $results AS $row )
                                     <tr>
                                         <td class="text-truncate">
-                                            <a href="{{route('catalog.edit',[$row['id']])}}">
+                                            <a href="{{route('catalog.edit',[$row['sku']])}}">
                                                 {{$row['name']}}
                                             </a>
                                         </td>

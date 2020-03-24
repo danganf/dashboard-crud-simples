@@ -6,6 +6,11 @@ use App\MyClass\Contracts\Requests;
 use Danganf\MyClass\Curl;
 use Illuminate\Http\Request;
 
+/**
+ * Class FactoryApis
+ * ABASTRAÇÃO DO ENDPOINT... DESSA FORMA, FICA FACIL A SEPARAÇÃO DO BACKEND EM UM SERVIÇO SEPARADO
+ * @package App\MyClass
+ */
 class FactoryApis extends Requests {
 
     private $options, $request, $method, $paramsGet=[], $msgError=null, $timeCache=0, $nameCache;

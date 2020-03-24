@@ -65,94 +65,23 @@ class DependencyFiles extends \Danganf\MyClass\DependencyFiles
         }
     }
 
-    public function routeCatalogProductsIndexInputs(){$this->routeCatalogProductsIndexMain();}
-    public function routeCatalogProductsNewMain()    {$this->routeCatalogProductsViewMain();}
-    public function routeCatalogProductsNewInputs()  {$this->routeCatalogProductsNewMain();}
-
-
-    public function routeCatalogProductsIndexMain()  {
+    public function routeCustomerEdit(){$this->routeCustomerNew();}
+    public function routeCustomerNew()  {
         $this->addBootstrapSwitch();
-        $this->addSelect2();
-        $this->css[] = '/app-assets/vendors/css/forms/toggle/switchery.min.css';
-        $this->js[]  = $this::JS_CRUD;
-        $this->js[]  = '/assets/js/printThis.js';
-        $this->js[]  = '/app-assets/vendors/js/forms/toggle/switchery.min.js';
-        $this->js[]  = '/app-assets/js/scripts/forms/switch.js';
+        $this->js[] = $this::JS_INPUT_MASK;
     }
 
-    public function routeCatalogProductsViewInputs(){
-        $this->routeCatalogProductsViewMain();
-    }
-
-    public function routeCatalogProductsViewMain(){
+    public function routeCatalogEdit(){$this->routeCatalogNew();}
+    public function routeCatalogNew()  {
         $this->addBootstrapSwitch();
-        $this->addSelect2();
-        $this->addJqueryUI();
-        $this->addSlidePushMenu();
-        $this->js[] = $this::JS_VENDOR_JFORM;
         $this->js[] = $this::JS_MASK_MONEY;
     }
 
-    public function addDropZone(){
-        $this->css[] = $this::CSS_DROPZONE;
-        $this->css[] = $this::CSS_DROPZONE_CONFIG;
-        $this->js[]  = $this::JS_DROPZONE;
-    }
-
-    private function addCatalogCategoriesNew(){
-        $this->addBootstrapSwitch();
-        $this->css[] = $this::CSS_ICON_SELECT;
-        $this->js[]  = $this::JS_VENDOR_VALIDATE;
-        $this->js[]  = $this::JS_ICON_SELECT;
-        $this->js[]  = $this::JS_ICON_SCROLL;
-    }
     private function addBootstrapSwitch(){
         $this->css[] = $this::CSS_BOOT_SWITCH;
         $this->css[] = $this::CSS_FORM_SWITCH;
         $this->js[]  = $this::JS_BOOT_SWITCH;
         $this->js[]  = $this::JS_BOOT_CHECKBOX;
-    }
-    private function addSlidePushMenu(){
-        $this->css[] = $this::CSS_SLIDE_PUSH_MENU;
-        $this->js[]  = $this::jS_SLIDE_PUSH_MENU;
-    }
-    private function addSelect2(){
-        $this->css[] = $this::CSS_SELECT_FULL;
-        $this->js[]  = $this::JS_SELECT_FULL;
-        $this->js[]  = $this::JS_SELECT_HEIGHT;
-    }
-    private function addTimeDropper(){
-        $this->css[] = $this::CSS_TIMEDROPPER;
-        $this->js[]  = $this::JS_TIMEDROPPER;
-    }
-    private function addToastr(){
-        $this->css[] = $this::CSS_TOASTR_1;
-        $this->css[] = $this::CSS_TOASTR_2;
-        $this->js[]  = $this::JS_TOASTR;
-    }
-    private function addFormRepeater(){
-        $this->js[]  = $this::JS_REPEATER;
-    }
-    private function addCalendar(){
-        $this->css[] = 'app-assets/vendors/css/calendars/fullcalendar.min.css';
-        $this->css[] = 'app-assets/css/plugins/calendars/fullcalendar.css';
-        $this->js[]  = 'app-assets/vendors/js/extensions/moment.min.js';
-        $this->js[]  = 'app-assets/vendors/js/extensions/fullcalendar.min.js';
-    }
-    private function addTagging(){
-        $this->css[] = 'app-assets/vendors/css/forms/tags/tagging.css';
-        $this->js[]  = 'app-assets/vendors/js/forms/tags/tagging.min.js';
-    }
-
-    private function addMenuDropDownSelect(){
-        $this->css[] = $this::CSS_MENU_DROPDOWN_SELECT;
-        $this->js[]  = $this::JS_MENU_DROPDOWN_SELECT;
-    }
-    private function addJqueryUI(){
-        $this->css[] = $this::CSS_JQUERY_UI;
-        $this->css[] = $this::CSS_JQUERY_UI_2;
-        $this->js[]  = $this::JS_JQUERY_UI;
-        $this->js[]  = $this::JS_BUTTONS_SELECTS;
     }
 
 }

@@ -27,9 +27,34 @@ class CatalogController extends Controller
         $result = $factoryApis->get('catalog');
 
         return $this->openView([
-            'results'        => array_pull( $result, 'data', [] ),
-            'filters'        => $filtersTmp,
-            'paginator'      => $result,
+            'results'   => array_pull( $result, 'data', [] ),
+            'filters'   => $filtersTmp,
+            'paginator' => $result,
         ]);
+    }
+
+    public function new(FactoryApis $factoryApis){
+
+        $this->subtitle = 'Novo produto';
+        return $this->openView([
+            'btn' => route('catalog.index'),
+        ], 'view');
+    }
+
+    public function edit($sku,FactoryApis $factoryApis){
+        $this->subtitle = 'Editar produto';
+
+        $data = $factoryApis->get('catalog',$sku);
+
+        if( empty( $data ) ) {
+            abort(404, 'Produto não encontrado');
+        }
+
+        return $this->openView(
+            array_merge( $data , [
+                'btn' => route('catalog.index')
+            ]),
+            'view'
+        );
     }
 }
