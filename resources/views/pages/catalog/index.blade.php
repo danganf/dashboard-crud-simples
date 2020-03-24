@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row">
-        {{--@include($basicPath.'.sections.filter')--}}
+        @include($basicPath.'.sections.filter')
     </div>
 
     <div class="row">
@@ -24,6 +24,10 @@
                                 <tr>
                                     <th class="border-top-0" style="width: 5%">#</th>
                                     <th class="border-top-0">Nome</th>
+                                    <th class="border-top-0">SKU</th>
+                                    <th class="border-top-0">Preço</th>
+                                    <th class="border-top-0">Em estoque</th>
+                                    <th class="border-top-0">Status</th>
                                     <th class="border-top-0 text-right">Ação</th>
                                 </tr>
                                 </thead>
@@ -36,6 +40,10 @@
                                                 {{$row['name']}}
                                             </a>
                                         </td>
+                                        <td class="text-truncate">{{$row['sku']}}</td>
+                                        <td class="text-truncate">R$ {{$row['price']}}</td>
+                                        <td class="text-truncate">{{$row['stock']}}</td>
+                                        <td class="text-truncate">{!! get_label_bool($row['status'], true) !!}</td>
                                         <td class="text-truncate text-right">
                                             <a class="btn-delete" data-id="{{$row['id']}}"><i class="la la-trash"></i></a>
                                         </td>

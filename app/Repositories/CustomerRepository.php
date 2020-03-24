@@ -19,6 +19,9 @@ class CustomerRepository extends RepositoryAbstract
 
         $where  = '';
 
+        if( !empty( trim( array_get( $filterArray, 'search', '' ) ) ) ){
+            $this->setFilter($where, "email like '%".$filterArray['search']."%' or name like '%".$filterArray['search']."%'");
+        }
         if( !empty( trim( array_get( $filterArray, 'document', '' ) ) ) ){
             $this->setFilter($where, "document='".$filterArray['document']."'");
         }

@@ -19,6 +19,9 @@ class ProductRepository extends RepositoryAbstract
 
         $where  = '';
 
+        if( !empty( trim( array_get( $filterArray, 'search', '' ) ) ) ){
+            $this->setFilter($where, "sku='".$filterArray['search']."' or name like '%".$filterArray['search']."%'");
+        }
         if( !empty( trim( array_get( $filterArray, 'sku', '' ) ) ) ){
             $this->setFilter($where, "sku='".$filterArray['sku']."'");
         }

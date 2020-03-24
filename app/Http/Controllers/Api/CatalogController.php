@@ -23,6 +23,9 @@ class CatalogController
         if( empty( $sku ) ) {
             $result = $this->repository->filter($request->all());
             $result = format_paginate($result);
+            if( !empty( $result ) ){
+                multiRenameKey($result['data'], [], [], true, true);
+            }
         }
         else {
             $result = $this->repository->findBy('sku', $sku);

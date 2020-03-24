@@ -20,7 +20,6 @@ class CustomerController extends Controller
 
         $filtersTmp           = getVariablesFilter($request);
         $filtersTmp['limit']  = ( array_get( $filtersTmp, 'limit', 10) );
-        $filtersTmp['order']  = 'name';
 
         $factoryApis->setFilters( $filtersTmp );
         $result = $factoryApis->get('customer');

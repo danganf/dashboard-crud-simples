@@ -20,13 +20,12 @@ class CatalogController extends Controller
 
         $filtersTmp           = getVariablesFilter($request);
         $filtersTmp['limit']  = ( array_get( $filtersTmp, 'limit', 10) );
-        $filtersTmp['order']  = 'name';
 
         $factoryApis->setFilters( $filtersTmp );
         $result = $factoryApis->get('catalog');
 
         return $this->openView([
-            'results'        => array_pull( $result, 'data' ),
+            'results'        => array_pull( $result, 'data', [] ),
             'filters'        => $filtersTmp,
             'paginator'      => $result,
         ]);
