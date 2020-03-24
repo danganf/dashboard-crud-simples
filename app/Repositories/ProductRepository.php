@@ -101,4 +101,10 @@ class ProductRepository extends RepositoryAbstract
         }
         return $return;
     }
+
+    public function deleteInBatch( JsonAbstract $json ){
+        $this->getModel()->whereIn( 'id', $json->get('ids') )->delete();
+        return TRUE;
+    }
+
 }

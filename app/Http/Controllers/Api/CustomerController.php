@@ -70,4 +70,15 @@ class CustomerController
         return msgErroJson($msg);
     }
 
+    public function deleteInBatch( Request $request ){
+
+        $msg = \Lang::get('default.action_error');
+
+        if( $this->repository->deleteInBatch( $request->get('json') ) ){
+            return msgSuccessJson('OK');
+        }
+
+        return msgErroJson($msg);
+    }
+
 }

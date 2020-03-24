@@ -90,4 +90,19 @@ class CatalogController
         return msgErroJson($msg);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteInBatch( Request $request ){
+
+        $msg = \Lang::get('default.action_error');
+
+        if( $this->repository->deleteInBatch( $request->get('json') ) ){
+            return msgSuccessJson('OK');
+        }
+
+        return msgErroJson($msg);
+    }
+
 }
