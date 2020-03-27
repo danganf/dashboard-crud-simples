@@ -12,6 +12,18 @@ class CustomerRepository extends RepositoryAbstract
         parent::__construct( __CLASS__ );
     }
 
+    public function getAvaible( $filterArray = [] ){
+
+        $filter['status'] = 'S';
+        $filter['limit']  = 'ALL';
+        $filter['dir']    = array_get( $filterArray, 'dir'  , 'asc' );
+        $filter['sort']   = array_get( $filterArray, 'sort' , 'name' );
+
+        unset( $filterArray );
+
+        return $this->filter( $filter );
+    }
+
     public function filter( $filterArray = [] ){
 
         $order  = array_get( $filterArray, 'sort'   , 'id' );
@@ -50,7 +62,11 @@ class CustomerRepository extends RepositoryAbstract
             $querie = $querie->whereRaw( trim( $where ) );
         }
 
-        $result = $querie->paginate( $limit );
+        if( $limit !== 'ALL' ) {
+            $result = $querie->paginate($limit);
+        } else {
+            $result = $querie->get();
+        }
 
         return $result->isNotEmpty() ? $result->toArray() : [];
 

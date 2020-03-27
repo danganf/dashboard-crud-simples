@@ -150,70 +150,7 @@
             }
         });
 
-        let elemNotify = $('.alert-notify-click');
-        if( elemNotify.length > 0 ){
-            elemNotify.on('click', function () {
-                let scope      =  $(this);
-                let elemCount  = $('.alert-notify-count');
-                let count      = parseInt( elemCount.html() ) - 1;
-                let resetCache = false;
-                let url        = $.trim( scope.data('url') );
-
-                $.ajax({
-                    url: "/api/put/alert-notify@viewed@"+scope.data('id'),
-                    async: false,
-                    success: function (data, jqXHR) {
-                        elemCount.html( count );
-                        if( count === 0 ){
-                            elemCount.parent().parent().remove();
-                        }
-                        scope.remove();
-                        resetCache = true;
-                    },
-                    error: function(data, jqXHR) {
-                        helper.alertError(data.responseJSON.messages);
-                        resetCache = 'error';
-                    }
-                });
-
-                if( resetCache ){
-                    $.ajax( {
-                        url: "/api/reset-cache",
-                        success: function (data, jqXHR) {
-                            if( url !== '' ){
-                                document.location.href = url;
-                            }
-                        }
-                    } );
-                }
-
-
-            });
-        }
-
     });
-    
-    window.onerror = function(message, file, line) {
-        $.ajax({
-            method: 'POST',
-            url: "/api/error",
-            data: {
-                url: helper.currentUrl(),
-                line: line,
-                file: file,
-                message: message,
-                user: '{{sessionOpen('get', 'login')}}',
-                userAgent: navigator.userAgent,
-                appVersion: navigator.appVersion,
-                appCodeName: navigator.appCodeName,
-                platform: navigator.platform,
-            },
-            success: function (data, jqXHR) {},
-            error: function(data, jqXHR) {
-            }
-        });
-
-    };
 
     @if( !empty( array_get($viewData,'actionName') ) )$("#{{array_get($viewData,'actionName')}}").addClass('open-menu');@endif
     @if( !empty( array_get($viewData,'routeName') ) ) $("#list-{{array_get($viewData,'routeName')}}").addClass('active');@endif

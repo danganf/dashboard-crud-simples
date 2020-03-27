@@ -12,6 +12,18 @@ class ProductRepository extends RepositoryAbstract
         return $this;
     }
 
+    public function getAvaible( $filterArray = [] ){
+
+        $filter['status'] = 'S';
+        $filter['limit']  = 'ALL';
+        $filter['dir']    = array_get( $filterArray, 'dir'  , 'asc' );
+        $filter['sort']   = array_get( $filterArray, 'sort' , 'name' );
+
+        unset( $filterArray );
+
+        return $this->filter( $filter );
+    }
+
     public function filter( $filterArray = [] ){
 
         $limit = array_get( $filterArray, 'limit', 0 );
@@ -44,7 +56,11 @@ class ProductRepository extends RepositoryAbstract
             $querie = $querie->whereRaw( trim( $where ) );
         }
 
-        $result = $querie->paginate( $limit );
+        if( $limit !== 'ALL' ) {
+            $result = $querie->paginate($limit);
+        } else {
+            $result = $querie->get();
+        }
 
         return $result->isNotEmpty() ? $result->toArray() : [];
 

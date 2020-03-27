@@ -14,6 +14,14 @@ class CatalogController
     }
 
     /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAvaible( Request $request ){
+        return msgJson( $this->repository->getAvaible( $request->all() ) );
+    }
+
+    /**
      * @param string $sku
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

@@ -13,6 +13,10 @@ class CustomerController
         $this->repository = $customerRepository;
     }
 
+    public function getAvaible( Request $request ){
+        return msgJson( $this->repository->getAvaible( $request->all() ) );
+    }
+
     /**
      * @param string $id
      * @param Request $request

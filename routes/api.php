@@ -27,6 +27,7 @@ Route::group( [ 'namespace' => 'Api' ], function () {
     });
 
     Route::prefix('customer')->name('customer.')->group(function () {
+        Route::get('/avaible'    , 'CustomerController@getAvaible' )->name('avaible');
         Route::get('/{id?}'      , 'CustomerController@index' )->name('filter');
         Route::post('/'          , 'CustomerController@create' )->middleware('check.json')->name('save');
         Route::put('/{id}'       , 'CustomerController@create' )->middleware('check.json')->name('save');
@@ -35,6 +36,7 @@ Route::group( [ 'namespace' => 'Api' ], function () {
     });
 
     Route::prefix('catalog')->name('catalog.')->group(function () {
+        Route::get('/avaible'             , 'CatalogController@getAvaible' )->name('avaible');
         Route::get('/{sku?}'              , 'CatalogController@index' )->name('filter');
         Route::post('/'                   , 'CatalogController@create' )->middleware('check.json')->name('save');
         Route::put('/{sku}'               , 'CatalogController@create' )->middleware('check.json')->name('save');
