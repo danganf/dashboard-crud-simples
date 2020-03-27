@@ -27,7 +27,9 @@ Route::group( [ 'namespace' => 'Api' ], function () {
     });
 
     Route::prefix('order')->name('order.')->group(function () {
-        Route::post('/', 'OrderController@create' )->middleware('check.json')->name('save');
+        Route::post('/'      , 'OrderController@create' )->middleware('check.json')->name('save');
+        Route::get('/{id?}'  , 'OrderController@index' )->name('filter');
+        Route::delete('/{id}', 'OrderController@delete' )->name('delete');
     });
 
     Route::prefix('customer')->name('customer.')->group(function () {

@@ -13,6 +13,52 @@ class OrderRepository extends RepositoryAbstract
         return $this;
     }
 
+    const STATUS_LABEL = [
+        'em_aberto' => 'Em aberto',
+        'pago'      => 'Pago',
+        'cancelado' => 'Cancelado'
+    ];
+
+    public function filter( $filterArray = [] ){
+
+        $order  = array_get( $filterArray, 'sort'   , 'id' );
+        $order .= ' '.array_get( $filterArray, 'dir', 'asc' );
+
+        $limit = array_get( $filterArray, 'limit', 0 );
+        $limit = !empty( $limit ) ? $limit : 25;
+
+        $where  = '';
+
+        if( !empty( trim( array_get( $filterArray, 'id', '' ) ) ) ){
+            $this->setFilter($where, "id='".only_number( $filterArray['id'] )."'");
+        }
+        if( !empty( trim( array_get( $filterArray, 'status', '' ) ) ) ){
+            $this->setFilter($where, "status='".$filterArray['status']."'");
+        }
+
+        $querie = $this->getModel()
+                    ->with(['items','customer'])
+                    ->OrderByRaw( $order );
+
+        if( !empty( $where ) ){
+            $querie = $querie->whereRaw( trim( $where ) );
+        }
+
+        if( $limit !== 'ALL' ) {
+            $result = $querie->paginate($limit);
+        } else {
+            $result = $querie->get();
+        }
+
+        return $result->isNotEmpty() ? $result->toArray() : [];
+
+    }
+
+    /**
+     * @param JsonAbstract $json
+     * @param null $id
+     * @return array
+     */
     public function createOrUpdate( JsonAbstract $json, $id=null ){
 
         $return = [];
@@ -101,5 +147,26 @@ class OrderRepository extends RepositoryAbstract
 
         return $return;
 
+    }
+
+    /**
+     * @param $id
+     * @param null $fields
+     * @return bool
+     */
+    public function delete($id, $fields=null)
+    {
+        DB::beginTransaction();
+        try {
+            $this->getModel()->items()->getRelated()->where('order_id', $id)->delete();
+            $return = parent::delete($id, 'id');
+        } catch ( \Exception $e ){
+            DB::rollback();
+            \LogDebug::error( $e->getMessage() );
+            $this->setMsgError( \Lang::get('default.internal_server_error') );
+            $return = FALSE;
+        }
+        DB::commit();
+        return $return;
     }
 }
