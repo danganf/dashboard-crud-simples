@@ -36,10 +36,18 @@ class OrderRepository extends RepositoryAbstract
 
             if( count($items) == count( $resultCatalog ) ){
 
-                $grandTotal = array_sum( pluckMatriz( $resultCatalog, 'price' ) );
+                $grandTotal = 0;
+
+                foreach( $items  as $key => $row ) {
+                    $catalog            = current( search_in_array( $resultCatalog, 'id', $row['catalog_id'] ) );
+                    $grandTotal        += ( $catalog['price'] * $row['qty'] );
+                    $row['catalog_sku'] = $catalog['sku'];
+                    $row['price']       = $catalog['price'];
+
+                    $items[$key] = $row;
+                }
 
                 if( $json->get('final_price ') <= $grandTotal ){
-
 
                     $this->set( 'customer_id'      , $json->get('customer_id') );
                     $this->set( 'customer_name'    , $resultCustomer['name'] );
@@ -57,16 +65,11 @@ class OrderRepository extends RepositoryAbstract
                         $this->find( $this->getModel()->id );
 
                         foreach (  $items  as $row ) {
-                            $modelItem = $this->getModel()->items()->getRelated();
-
-                            // BSUCANDO CATALOG_ID DENTRO DO ARRAY RESULT
-                            $catalog   = current( search_in_array( $resultCatalog, 'id', $row['catalog_id'] ) );
-
-                            $modelItem->catalog_id  = $catalog['id'];
-                            $modelItem->catalog_sku = $catalog['sku'];
-                            $modelItem->qty         = $row['qty'];
-                            $modelItem->price       = $catalog['price'];
-                            $this->getModel()->items()->save( $modelItem );
+                            $modelTmp = $this->getModel()->items()->getRelated();
+                            foreach ($row as $key => $value) {
+                                $modelTmp->{$key} = !is_null($value) ? (string) $value : null;
+                            }
+                            $this->getModel()->items()->save($modelTmp);
                         }
 
                         $return = [

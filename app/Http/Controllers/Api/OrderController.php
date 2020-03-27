@@ -12,7 +12,7 @@ class OrderController extends Controller
 
         $result = $orderRepository->createOrUpdate( $request->get('json') );
         if( !empty( $result ) ){
-            return msgSuccessJson('OK');
+            return msgJson( $result );
         }
         return msgErroJson( $orderRepository->getMsgError() );
 
