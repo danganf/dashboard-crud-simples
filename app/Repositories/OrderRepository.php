@@ -35,9 +35,18 @@ class OrderRepository extends RepositoryAbstract
         if( !empty( trim( array_get( $filterArray, 'status', '' ) ) ) ){
             $this->setFilter($where, "status='".$filterArray['status']."'");
         }
+        if( !empty( trim( array_get( $filterArray, 'phone', '' ) ) ) ){
+            $this->setFilter($where, "customer_phone='".only_number( $filterArray['phone'] )."'");
+        }
+        if( !empty( trim( array_get( $filterArray, 'name', '' ) ) ) ){
+            $this->setFilter($where, "customer_name like '%".$filterArray['name']."%'");
+        }
+        if( !empty( trim( array_get( $filterArray, 'email', '' ) ) ) ){
+            $this->setFilter($where, "customer_email like '%".$filterArray['email']."%'");
+        }
 
         $querie = $this->getModel()
-                    ->with(['items','customer'])
+                    ->with(['items'])
                     ->OrderByRaw( $order );
 
         if( !empty( $where ) ){
@@ -78,17 +87,17 @@ class OrderRepository extends RepositoryAbstract
             $resultCatalog = $this->getModel()->items()->getRelated()->catalog()->getRelated()
                 ->where('status', 1)
                 ->whereIn('id',  pluckMatriz( objectToArray( $items ), 'catalog_id' ) )
-                ->select('id', 'sku', 'price')->get()->toArray();
+                ->select('id', 'name', 'price')->get()->toArray();
 
             if( count($items) == count( $resultCatalog ) ){
 
                 $grandTotal = 0;
 
                 foreach( $items  as $key => $row ) {
-                    $catalog            = current( search_in_array( $resultCatalog, 'id', $row['catalog_id'] ) );
-                    $grandTotal        += ( $catalog['price'] * $row['qty'] );
-                    $row['catalog_sku'] = $catalog['sku'];
-                    $row['price']       = $catalog['price'];
+                    $catalog             = current( search_in_array( $resultCatalog, 'id', $row['catalog_id'] ) );
+                    $grandTotal         += ( $catalog['price'] * $row['qty'] );
+                    $row['catalog_name'] = $catalog['name'];
+                    $row['price']        = $catalog['price'];
 
                     $items[$key] = $row;
                 }

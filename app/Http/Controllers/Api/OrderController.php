@@ -25,6 +25,9 @@ class OrderController extends Controller
             $result = $this->repository->filter($request->all());
             $result = format_paginate($result);
             $result['status_label'] = $this->repository::STATUS_LABEL;
+            if( !empty( $result ) ){
+                multiRenameKey($result['data'], [], [], true, true);
+            }
         }
         else {
             $result = $this->repository->setwith('items')->find($id);

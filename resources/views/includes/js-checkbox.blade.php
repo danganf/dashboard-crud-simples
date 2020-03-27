@@ -1,28 +1,28 @@
-let elementCustomerIds = $('input[name="customer_ids"]');
+let elementListIds = $('input[name="list_ids"]');
 
 $( document ).ready(function() {
     $('span.check').on( 'click', function () {
         let scope  = $(this);
         let action = scope.data('action');
-        $.each( elementCustomerIds, function (index, element) {
+        $.each( elementListIds, function (index, element) {
             element = $(element);
             element. prop("checked", ( action === 1 ? true : false ) );
         } );
-        updateTtCheckBox( elementCustomerIds );
+        updateTtCheckBox( elementListIds );
     } );
 } );
 
-elementCustomerIds.on( 'click', function () {
-    updateTtCheckBox( elementCustomerIds );
+elementListIds.on( 'click', function () {
+    updateTtCheckBox( elementListIds );
 });
 
-function updateTtCheckBox( elementCustomerIds ) {
+function updateTtCheckBox( elementListIds ) {
     let tt         = 0;
     let elementTt  = $('.tt');
-    let elementBtn = $('.btn-customer-ids');
+    let elementBtn = $('.btn-list_ids');
     elementTt.html( 0 );
     elementBtn.hide();
-    $.each( elementCustomerIds, function (index, element) {
+    $.each( elementListIds, function (index, element) {
         element = $(element);
         if( element. prop("checked") ){
             tt++;
@@ -40,7 +40,7 @@ function updateTtCheckBox( elementCustomerIds ) {
                 if ( typeof result.dismiss === "undefined" ) {
                     $('.swal-button--confirm').html(helper.htmlSpinner());
                     let ids = [];
-                    $.each($("input[name='customer_ids']:checked"), function(){
+                    $.each($("input[name='list_ids']:checked"), function(){
                         ids.push($(this). val());
                     });
                     if( ids.length > 0 ){

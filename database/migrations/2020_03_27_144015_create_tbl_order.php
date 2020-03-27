@@ -33,7 +33,7 @@ class CreateTblOrder extends Migration
             $table->increments('id')->unsigned();
             $table->integer('order_id')->unsigned()->index();
             $table->integer('catalog_id')->unsigned()->index()->comment('FK tbl catalog');
-            $table->string('catalog_sku', 80)->index();
+            $table->string('catalog_name', 80)->index();
             $table->integer('qty');
             $table->decimal('price', 10, 2);
             $table->timestamps();

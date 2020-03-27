@@ -5,7 +5,7 @@
         .card-title{font-size: 1rem !important;}
         .check{color: #D40000;}
         input[type=checkbox]{cursor: pointer;}
-        .btn-customer-ids{display: none;position: absolute;margin-top: -4px;margin-left: 4px;}
+        .btn-list_ids{display: none;position: absolute;margin-top: -4px;margin-left: 4px;}
     </style>
 @endsection
 
@@ -24,7 +24,7 @@
                         <span class="check cursor-pointer" data-action="1">Todos Visíveis</span> |
                         <span class="check cursor-pointer" data-action="0">Desselecionar</span> |
                         <strong class="tt">0</strong> itens selecionados
-                        <button class="btn btn-sm btn-customer-ids btn-warning" data-destiny="customer">Deletar</button>
+                        <button class="btn btn-sm btn-list_ids btn-warning" data-destiny="customer">Deletar</button>
                     </h4>
                     <div class="heading-elements">
                         <button onclick="location.href='{{route('customer.new')}}'" class="btn btn-primary btn-sm btn-icon"><i class="ft-plus white"></i> Novo</button>
@@ -49,7 +49,7 @@
                                 @foreach( $results AS $row )
                                     <tr>
                                         <td class="text-truncate">
-                                            <input type="checkbox" name="customer_ids" class="form-control customer_ids" value="{{$row['id']}}" />
+                                            <input type="checkbox" name="list_ids" class="form-control list_ids" value="{{$row['id']}}" />
                                         </td>
                                         <td class="text-truncate">
                                             <a href="{{route('customer.edit',[$row['id']])}}">

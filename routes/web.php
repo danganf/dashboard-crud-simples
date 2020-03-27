@@ -29,4 +29,11 @@ Route::group( [ 'middleware' => [ 'verify.session', 'dependency.files' ] ], func
 
     });
 
+    Route::group( [ 'as' => 'order.', 'prefix' => 'order' ], function () {
+
+        Route::get('/'         , 'OrderController@index' )->name('index');
+        Route::get('/view/{id}', 'OrderController@edit' )->name('view');
+
+    });
+
 });
