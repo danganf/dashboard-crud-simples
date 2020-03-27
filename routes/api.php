@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 
 Route::group( [ 'namespace' => 'Api' ], function () {
 
-    Route::match(['POST', 'OPTIONS'], '/auth', 'MainController@auth' )->name('auth');
+    Route::match(['POST', 'OPTIONS'], '/auth', 'MainController@auth' )->middleware('check.json')->name('auth');
 
     Route::get('reset-cache', function () {
         \Artisan::call('cache:clear');

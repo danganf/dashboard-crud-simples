@@ -3,8 +3,9 @@
 
 Route::group( [ 'as' => 'auth.', 'prefix' => 'auth' ], function () {
 
-    Route::get('/'      , 'AuthController@index' )->name('index');
-    Route::get('/logoff', 'AuthController@logoff' )->name('logoff');
+    Route::get('/'       , 'AuthController@index' )->name('index');
+    Route::post('/verify', 'AuthController@auth' )->name('auth');
+    Route::get('/logoff' , 'AuthController@logoff' )->name('logoff');
 
 });
 

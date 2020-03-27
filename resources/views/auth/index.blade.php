@@ -136,7 +136,7 @@
         btnScope.html('Processando...').attr('disabled',true);
 
         $.post({
-            url: "/api/auth",
+            url: "/auth/verify",
             data: $(this).serialize(),
             dataType: '',
             success: function (data, jqXHR) {
