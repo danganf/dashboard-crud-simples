@@ -59,4 +59,15 @@ class OrderController extends Controller
 
         return msgErroJson($this->repository->getMsgError());
     }
+
+    public function deleteInBatch( Request $request ){
+
+        $msg = \Lang::get('default.action_error');
+
+        if( $this->repository->deleteInBatch( $request->get('json') ) ){
+            return msgSuccessJson('OK');
+        }
+
+        return msgErroJson($msg);
+    }
 }

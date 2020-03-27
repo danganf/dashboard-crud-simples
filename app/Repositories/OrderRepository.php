@@ -169,4 +169,20 @@ class OrderRepository extends RepositoryAbstract
         DB::commit();
         return $return;
     }
+
+    public function deleteInBatch( JsonAbstract $json ){
+
+        DB::beginTransaction();
+        try {
+            $this->getModel()->items()->getRelated()->whereIn( 'order_id', $json->get('ids') )->delete();
+            $return = $this->getModel()->whereIn( 'id', $json->get('ids') )->delete();
+        } catch ( \Exception $e ){
+            DB::rollback();
+            \LogDebug::error( $e->getMessage() );
+            $this->setMsgError( \Lang::get('default.internal_server_error') );
+            $return = FALSE;
+        }
+        DB::commit();
+        return $return;
+    }
 }

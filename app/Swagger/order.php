@@ -46,4 +46,27 @@
  *   @SWG\Response(response=400, description="operation not completed"),
  * )
  *
+ * @SWG\Delete(
+ *   path="order/{id}",
+ *   summary="Delete Order",
+ *   operationId="order-del",
+ *   tags={"Order"},
+ *   @SWG\Parameter(in="path", name="id", description="Order id", type="string", required=true ),
+ *   @SWG\Response(response=200, description="successful operation")
+ * )
+ *
+ * @SWG\Delete(
+ *   path="order/in-batch",
+ *   summary="Delete Order in-batch",
+ *   operationId="order-del-in-batch",
+ *   tags={"Order"},
+ *   @SWG\Parameter(in="body",name="body",description="",required=true,default="",
+ *       @SWG\Schema(type="string",
+ *          @SWG\Property(property="ids", type="array",
+ *              @SWG\Items(type="integer", example="2")
+ *          ),
+ *     )),
+ *   @SWG\Response(response=200, description="successful operation")
+ * )
+ *
  */
