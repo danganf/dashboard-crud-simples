@@ -34,6 +34,9 @@ class ProductRepository extends RepositoryAbstract
 
         $where  = '';
 
+        if( !empty( trim( array_get( $filterArray, 'id', '' ) ) ) ){
+            $this->setFilter($where, "id='".only_number( $filterArray['id'] )."'");
+        }
         if( !empty( trim( array_get( $filterArray, 'search', '' ) ) ) ){
             $this->setFilter($where, "sku='".$filterArray['search']."' or name like '%".$filterArray['search']."%'");
         }

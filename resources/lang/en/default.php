@@ -29,4 +29,7 @@ return [
     'product_not_found'       => 'Produto NÃO localizado',
     'not_identify'            => 'Não indentificado',
     'uninformed'              => 'Não informado',
+    'customer_not_found'      => 'Cliente não localizado',
+    'order_items_not_found'   => 'Alguns itens da compra nãp foram localizados',
+    'value_order_error'       => 'valor da compra incorreto',
 ];

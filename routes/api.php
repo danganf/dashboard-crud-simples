@@ -26,6 +26,10 @@ Route::group( [ 'namespace' => 'Api' ], function () {
         return msgSuccessJson('OK');
     });
 
+    Route::prefix('order')->name('order.')->group(function () {
+        Route::post('/', 'OrderController@create' )->middleware('check.json')->name('save');
+    });
+
     Route::prefix('customer')->name('customer.')->group(function () {
         Route::get('/avaible'    , 'CustomerController@getAvaible' )->name('avaible');
         Route::get('/{id?}'      , 'CustomerController@index' )->name('filter');

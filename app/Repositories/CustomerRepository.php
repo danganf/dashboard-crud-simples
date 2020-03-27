@@ -40,6 +40,9 @@ class CustomerRepository extends RepositoryAbstract
         if( !empty( trim( array_get( $filterArray, 'document', '' ) ) ) ){
             $this->setFilter($where, "document='".only_number( $filterArray['document'] )."'");
         }
+        if( !empty( trim( array_get( $filterArray, 'id', '' ) ) ) ){
+            $this->setFilter($where, "id='".only_number( $filterArray['id'] )."'");
+        }
         if( !empty( trim( array_get( $filterArray, 'phone', '' ) ) ) ){
             $this->setFilter($where, "phone='".only_number( $filterArray['phone'] )."'");
         }
