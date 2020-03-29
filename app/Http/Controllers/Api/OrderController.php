@@ -32,7 +32,10 @@ class OrderController extends Controller
         else {
             $result = $this->repository->setwith('items')->find($id);
             if (!$result->fails()) {
-                $result                 = $result->toArray();
+                $result = $result->toArray();
+                $result = convert_data_in_row( $result );
+                $result = convert_price_in_row( $result );
+                multiRenameKey($result['items'], [], [], true, true);
                 $result['status_label'] = $this->repository::STATUS_LABEL;
             }
         }

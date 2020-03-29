@@ -34,4 +34,22 @@ class OrderController extends Controller
         ]);
     }
 
+    public function edit( $id,FactoryApis $factoryApis ){
+        $this->subtitle = 'Detalhar pedido';
+
+        $data = $factoryApis->get('order',$id);
+
+        if( empty( $data ) ) {
+            abort(404, 'Pedido não encontrado');
+        }
+
+
+        return $this->openView(
+            array_merge( $data , [
+                'btn' => route('order.index')
+            ]),
+            'view'
+        );
+    }
+
 }
