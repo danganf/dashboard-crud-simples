@@ -33,6 +33,7 @@ Route::group( [ 'middleware' => [ 'verify.session', 'dependency.files' ] ], func
 
         Route::get('/'         , 'OrderController@index' )->name('index');
         Route::get('/view/{id}', 'OrderController@edit' )->name('view');
+        Route::get('/pdv'      , 'OrderController@pdv' )->name('pdv');
 
     });
 

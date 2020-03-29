@@ -45,11 +45,19 @@ class OrderController extends Controller
 
 
         return $this->openView(
-            array_merge( $data , [
-                'btn' => route('order.index')
-            ]),
+            array_merge( $data , [ 'btn' => true ] ),
             'view'
         );
+    }
+
+    public function pdv( FactoryApis $factoryApis ){
+
+        $this->subtitle = 'Nova venda';
+        return $this->openView([
+            'btn'       => true,
+            'customers' => $factoryApis->get('customer', 'avaible'),
+            'urlReload' => route('order.pdv')
+        ], 'pdv');
     }
 
 }

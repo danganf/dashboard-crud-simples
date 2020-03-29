@@ -88,7 +88,7 @@
             @if( isset( $btnAction ) )
             <div class="content-header-right col-md-4 col-12">
                 <div class="dropdown float-md-right">
-                    <a href="{!! $btnAction !!}" class="btn btn-info btn-click round btn-min-width mr-1 mb-1 white"><i class="la la-backward"></i>Voltar</a>
+                    <a onclick="helper.goBack()" class="btn btn-info btn-click round btn-min-width mr-1 mb-1 white"><i class="la la-backward"></i>Voltar</a>
                 </div>
             </div>
             @endif

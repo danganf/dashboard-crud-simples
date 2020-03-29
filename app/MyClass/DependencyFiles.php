@@ -9,45 +9,16 @@ namespace App\MyClass;
 
 class DependencyFiles extends \Danganf\MyClass\DependencyFiles
 {
-    const CSS_ICON_SELECT            = 'assets/css/iconselect.css';
-    const CSS_MODAL_COINS_BANK_NOTES = 'assets/css/modal-banknotes-coins.css';
-    const CSS_MENU_DROPDOWN_SELECT   = 'assets/css/menu-dropdown-select.css';
     const CSS_BOOT_SWITCH            = 'app-assets/vendors/css/forms/toggle/bootstrap-switch.min.css';
-    const CSS_SELECT_FULL            = 'app-assets/vendors/css/forms/selects/select2.min.css';
     const CSS_FORM_SWITCH            = 'app-assets/css/plugins/forms/switch.css';
-    const CSS_TIMEDROPPER            = 'app-assets/vendors/css/extensions/timedropper.min.css';
-    const CSS_DROPZONE               = 'app-assets/vendors/css/file-uploaders/dropzone.min.css';
-    const CSS_DROPZONE_CONFIG        = 'app-assets/css/plugins/file-uploaders/dropzone.css';
-    const CSS_ANIMATE                = 'app-assets/css/plugins/animate/animate.css';
-    const CSS_TIMELINE               = 'app-assets/css/pages/timeline.css';
-    const CSS_TOASTR_1               = 'app-assets/vendors/css/extensions/toastr.css';
-    const CSS_TOASTR_2               = 'app-assets/css/plugins/extensions/toastr.css';
     const CSS_JQUERY_UI              = 'app-assets/vendors/css/ui/jquery-ui.min.css';
     const CSS_JQUERY_UI_2            = 'app-assets/css/plugins/ui/jqueryui.css';
-    const CSS_SLIDE_PUSH_MENU        = 'app-assets/vendors/css/Blueprints/SlidePushMenus/css/component.css';
-
-    const JS_SELECT_FULL             = 'app-assets/vendors/js/forms/select/select2.full.min.js';
-    const JS_SELECT_HEIGHT           = 'app-assets/vendors/js/forms/select/maximize-select2-height.min.js';
-    const JS_REPEATER                = 'app-assets/vendors/js/forms/repeater/jquery.repeater.min.js';
     const JS_BOOT_SWITCH             = 'app-assets/vendors/js/forms/toggle/bootstrap-switch.min.js';
     const JS_BOOT_CHECKBOX           = 'app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js';
-    const JS_TIMEDROPPER             = 'app-assets/vendors/js/extensions/timedropper.min.js';
     const JS_INPUT_MASK              = 'app-assets/vendors/js/forms/extended/inputmask/jquery.inputmask.bundle.min.js';
-    const JS_FORMATTER               = 'app-assets/vendors/js/forms/extended/formatter/formatter.min.js';
-    const JS_DROPZONE                = 'app-assets/vendors/js/extensions/dropzone.min.js';
-    const JS_FORM_FIELD              = 'app-assets/vendors/js/forms/tags/form-field.js';
     const JS_JQUERY_UI               = 'app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js';
-    const JS_TIMELINE_HORIZON        = 'assets/js/timeline/horizontal-timeline.js';
-    const JS_TOASTR                  = 'app-assets/vendors/js/extensions/toastr.min.js';
     const JS_BUTTONS_SELECTS         = 'app-assets/js/scripts/ui/jquery-ui/buttons-selects.js';
-    const jS_SLIDE_PUSH_MENU         = 'app-assets/vendors/js/Blueprints/SlidePushMenus/js/classie.js';
     const JS_MASK_MONEY              = 'assets/js/jquery.maskMoney.min.js';
-    const JS_ICON_SELECT             = 'assets/js/iconselect.js';
-    const JS_ICON_SCROLL             = 'assets/js/iscroll.js';
-    const JS_MENU_DROPDOWN_SELECT    = 'assets/js/menu-dropdown-select.js';
-    const JS_VENDOR_VALIDATE         = 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js';
-    const JS_VENDOR_JQUERY_UI        = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js';
-    const JS_VENDOR_JFORM            = 'app-assets/vendors/js/forms/jquery.form.js';//'https://malsup.github.com/jquery.form.js';
     const JS_CRUD                    = 'assets/js/cruds/main.js';
 
     public function __construct($routeName)
@@ -63,6 +34,13 @@ class DependencyFiles extends \Danganf\MyClass\DependencyFiles
         if( substr( $this->routename, -5 ) === 'Index' || strpos( $this->routename, 'Index' ) !== FALSE ){
             $this->js[] = $this::JS_CRUD;
         }
+    }
+
+    public function routeOrderPdv(){
+        $this->css[] = $this::CSS_JQUERY_UI;
+        $this->css[] = $this::CSS_JQUERY_UI_2;
+        $this->js[]  = $this::JS_JQUERY_UI;
+        $this->js[]  = $this::JS_BUTTONS_SELECTS;
     }
 
     public function routeCustomerEdit(){$this->routeCustomerNew();}

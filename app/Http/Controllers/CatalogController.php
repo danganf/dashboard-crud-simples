@@ -33,12 +33,10 @@ class CatalogController extends Controller
         ]);
     }
 
-    public function new(FactoryApis $factoryApis){
+    public function new(){
 
         $this->subtitle = 'Novo produto';
-        return $this->openView([
-            'btn' => route('catalog.index'),
-        ], 'view');
+        return $this->openView([ 'btn' => true ], 'view');
     }
 
     public function edit($sku,FactoryApis $factoryApis){
@@ -51,9 +49,7 @@ class CatalogController extends Controller
         }
 
         return $this->openView(
-            array_merge( $data , [
-                'btn' => route('catalog.index')
-            ]),
+            array_merge( $data , ['btn' => true ] ),
             'view'
         );
     }

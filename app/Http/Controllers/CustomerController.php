@@ -33,12 +33,10 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function new(FactoryApis $factoryApis){
+    public function new(){
 
         $this->subtitle = 'Novo Cliente';
-        return $this->openView([
-            'btn' => route('customer.index'),
-        ], 'view');
+        return $this->openView([ 'btn' => true ], 'view');
     }
 
     public function edit($id,FactoryApis $factoryApis){
@@ -51,9 +49,7 @@ class CustomerController extends Controller
         }
 
         return $this->openView(
-            array_merge( $data , [
-                'btn'        => route('customer.index')
-            ]),
+            array_merge( $data , [ 'btn' => true ] ),
             'view'
         );
     }

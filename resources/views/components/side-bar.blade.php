@@ -14,7 +14,7 @@
             <a href={{route('order.index')}}#"><i class="ft-shopping-cart"></i><span class="menu-title">Vendas</span></a>
             <ul class="menu-content">
                 <li><a href="{{route('order.index')}}"><span class="menu-title">Meus pedidos</span></a></li>
-                <li><a href="#"><span class="menu-title">PDV Balcão</span></a></li>
+                <li><a href="{{route('order.pdv')}}"><span class="menu-title">PDV</span></a></li>
             </ul>
         </li>
 

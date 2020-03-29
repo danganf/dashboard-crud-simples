@@ -18,7 +18,13 @@ class CatalogController
      * @return \Illuminate\Http\JsonResponse
      */
     public function getAvaible( Request $request ){
-        return msgJson( $this->repository->getAvaible( $request->all() ) );
+
+        $result = $this->repository->getAvaible( $request->all() );
+        if( !empty( $result ) ){
+            multiRenameKey($result, [], [], true, true);
+        }
+
+        return msgJson( $result );
     }
 
     /**

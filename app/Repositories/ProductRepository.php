@@ -18,6 +18,7 @@ class ProductRepository extends RepositoryAbstract
         $filter['limit']  = 'ALL';
         $filter['dir']    = array_get( $filterArray, 'dir'  , 'asc' );
         $filter['sort']   = array_get( $filterArray, 'sort' , 'name' );
+        $filter['search'] = array_get( $filterArray, 'search' );
 
         unset( $filterArray );
 
