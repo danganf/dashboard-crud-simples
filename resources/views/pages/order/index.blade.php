@@ -41,7 +41,7 @@
                                     <th class="border-top-0">Telefone {!! format_hmt_sort( 'customer_phone', $filters ) !!}</th>
                                     <th class="border-top-0">Valor {!! format_hmt_sort( 'final_price', $filters ) !!}</th>
                                     <th class="border-top-0">Status {!! format_hmt_sort( 'status', $filters ) !!}</th>
-                                    <th class="border-top-0 text-right">Ação</th>
+                                    <th class="border-top-0">Ação</th>
                                 </tr>
                                 </thead>
                                 <tbody class="value-last-orders">
@@ -66,8 +66,25 @@
                                         <td class="text-truncate">{{mask_string( $row['customer_phone'] )}}</td>
                                         <td class="text-truncate">R$ {{$row['final_price']}}</td>
                                         <td class="text-truncate">{!! array_get( $statusLabel, $row['status'] ) !!}</td>
-                                        <td class="text-truncate text-right">
-                                            <a class="btn-delete" data-id="{{$row['id']}}"><i class="la la-trash"></i></a>
+                                        <td class="">
+                                            @if( $row['status'] !== 'cancelado' )
+                                            <div class="btn-group">
+                                                <button type="button" style="opacity: 0.8" class="btn btn-icon btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    <i style="font-size: 1.2em;" class="ft-settings"></i>
+                                                </button>
+                                                <div class="dropdown-menu" style="font-size: 1.1rem;">
+
+                                                    @if( $row['status'] !== 'pago' )
+                                                    <a class="dropdown-item btn-change-status" data-action="pago" data-id="{{$row['id']}}"><i class="la la-money"></i> Registrar pagamento</a>
+                                                    @endif
+                                                    <a class="dropdown-item btn-change-status" data-action="cancelar" data-id="{{$row['id']}}"><i class="la la-close"></i> Cancelar pedido</a>
+                                                    <a class="dropdown-item btn-delete" data-id="{{$row['id']}}"><i class="la la-trash"></i> Deletar</a>
+
+                                                </div>
+                                            </div>
+                                            @else
+                                            --
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
