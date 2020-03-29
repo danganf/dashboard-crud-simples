@@ -31,5 +31,7 @@ return [
     'uninformed'              => 'Não informado',
     'customer_not_found'      => 'Cliente não localizado',
     'order_items_not_found'   => 'Alguns itens da compra nãp foram localizados',
-    'value_order_error'       => 'valor da compra incorreto',
+    'value_order_error'       => 'Valor da compra incorreto',
+    'order_status_incorrect'  => 'Status incorreto para essa ação',
+    'status_invalid'          => 'Status inválido',
 ];

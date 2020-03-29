@@ -67,23 +67,19 @@
                                         <td class="text-truncate">R$ {{$row['final_price']}}</td>
                                         <td class="text-truncate">{!! array_get( $statusLabel, $row['status'] ) !!}</td>
                                         <td class="">
-                                            @if( $row['status'] !== 'cancelado' )
+                                            @if( $row['status'] === 'em_aberto' )
                                             <div class="btn-group">
                                                 <button type="button" style="opacity: 0.8" class="btn btn-icon btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                     <i style="font-size: 1.2em;" class="ft-settings"></i>
                                                 </button>
                                                 <div class="dropdown-menu" style="font-size: 1.1rem;">
-
-                                                    @if( $row['status'] !== 'pago' )
-                                                    <a class="dropdown-item btn-change-status" data-action="pago" data-id="{{$row['id']}}"><i class="la la-money"></i> Registrar pagamento</a>
-                                                    @endif
-                                                    <a class="dropdown-item btn-change-status" data-action="cancelar" data-id="{{$row['id']}}"><i class="la la-close"></i> Cancelar pedido</a>
+                                                    <a class="dropdown-item btn-change-status" data-action="pago" data-text="registrar o pagamento" data-id="{{$row['id']}}"><i class="la la-money"></i> Registrar pagamento</a>
+                                                    <a class="dropdown-item btn-change-status" data-action="cancelado" data-text="cancelar" data-id="{{$row['id']}}"><i class="la la-close"></i> Cancelar pedido</a>
                                                     <a class="dropdown-item btn-delete" data-id="{{$row['id']}}"><i class="la la-trash"></i> Deletar</a>
-
                                                 </div>
                                             </div>
                                             @else
-                                            --
+                                                <a class="btn-delete" data-id="{{$row['id']}}"><i class="la la-trash"></i> Deletar</a>
                                             @endif
                                         </td>
                                     </tr>
@@ -103,6 +99,31 @@
 @section('js')
 
     <script>
+        $( document ).ready(function() {
+            $('.btn-change-status').on('click',function(){
+                let action = $(this).data('action');
+                swal({
+                    title: 'Deseja realmente '+$(this).data('text')+' desse pedido?',
+                    text: "Esta ação não poderá ser desfeita!",
+                    confirmButtonText: 'Sim',
+                    showCancelButton: true
+                }).then((result) => {
+                    if ( typeof result.dismiss === "undefined" ) {
+                        $('.swal-button--confirm').html(helper.htmlSpinner());
+                        $.ajax({
+                            url: "/api/put/order/"+$(this).data('id')+"@status@"+action,
+                            success: function (data, jqXHR) {
+                                helper.alertSucess('Registros atualizado com sucesso!');
+                                location.reload();
+                            },
+                            error: function(data, jqXHR) {
+                                helper.alertError(data.responseJSON.error)
+                            }
+                        });
+                    }
+                })
+            });
+        });
         cruds.bindDelete('order');
         @include('includes.filter-js')
         @include('includes.js-checkbox')

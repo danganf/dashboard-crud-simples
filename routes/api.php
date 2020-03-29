@@ -27,10 +27,11 @@ Route::group( [ 'namespace' => 'Api' ], function () {
     });
 
     Route::prefix('order')->name('order.')->group(function () {
-        Route::post('/'          , 'OrderController@create' )->middleware('check.json')->name('save');
-        Route::get('/{id?}'      , 'OrderController@index' )->name('filter');
-        Route::delete('/{id}'    , 'OrderController@delete' )->name('delete');
-        Route::delete('/in-batch', 'OrderController@deleteInBatch' )->middleware('check.json')->name('delete_in_batch');
+        Route::post('/'                   , 'OrderController@create' )->middleware('check.json')->name('save');
+        Route::get('/{id?}'               , 'OrderController@index' )->name('filter');
+        Route::put('/{id}/status/{action}', 'OrderController@updtStatus' )->name('updt_status');
+        Route::delete('/{id}'             , 'OrderController@delete' )->name('delete');
+        Route::delete('/in-batch'         , 'OrderController@deleteInBatch' )->middleware('check.json')->name('delete_in_batch');
     });
 
     Route::prefix('customer')->name('customer.')->group(function () {

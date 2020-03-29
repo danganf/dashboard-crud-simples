@@ -179,6 +179,26 @@ class OrderRepository extends RepositoryAbstract
         return $return;
     }
 
+    public function updateStatus( $newStatus ){
+        $return = FALSE;
+        if( !$this->fails() ){
+            if( $this->get('status') === 'em_aberto' ){
+
+                if( array_key_exists( $newStatus, $this::STATUS_LABEL ) ) {
+                    $this->set('status', $newStatus)->save();
+                    $return = TRUE;
+                } else {
+                    $this->setMsgError( \Lang::get('default.status_invalid') );
+                }
+            } else {
+                $this->setMsgError( \Lang::get('default.order_status_incorrect') );
+            }
+        } else {
+            $this->setMsgError( \Lang::get('default.register_not_exist') );
+        }
+        return $return;
+    }
+
     public function deleteInBatch( JsonAbstract $json ){
 
         DB::beginTransaction();

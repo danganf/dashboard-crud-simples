@@ -76,4 +76,11 @@ class OrderController extends Controller
 
         return msgErroJson($msg);
     }
+
+    public function updtStatus( $id, $action ){
+        if( $this->repository->find($id)->updateStatus( $action ) ){
+            return msgSuccessJson('OK');
+        }
+        return msgErroJson($this->repository->getMsgError());
+    }
 }
