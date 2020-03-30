@@ -21,6 +21,11 @@ class FactoryApis extends Requests {
         $this->setOptions();
     }
 
+    /**
+     * setando parametros gets na consulta utilizando uma entrada array
+     * @param $filterArray
+     * @return $this
+     */
     public function setFilters($filterArray){
         foreach ( $filterArray as $key => $value ){
             $this->setParamsGet( $key, $value );
@@ -28,11 +33,21 @@ class FactoryApis extends Requests {
         return $this;
     }
 
+    /**
+     * forçando o reset dos paramentros get
+     * @return $this
+     */
     public function resetParamsGet(){
         $this->paramsGet=[];
         return $this;
     }
 
+    /**
+     * setando parametros gets na consulta
+     * @param $param
+     * @param $value
+     * @return $this
+     */
     public function setParamsGet($param,$value){
         //\Log::info($value);
         if( !is_array( $value ) ) {
@@ -41,11 +56,31 @@ class FactoryApis extends Requests {
         return $this;
     }
 
+    /**
+     * setando o $request Laravel da consulta atual
+     * @param Request $request
+     * @return $this
+     */
     public function setRequest(Request $request){
         $this->request = $request;
         return $this;
     }
 
+    /**
+     * metodo mágico utilizando para resolver o verbo que será utilizado na consulta
+     * ->get() = METHOD GET
+     * ->post() = METHOD POST
+     * ->put() = METHOD PUT
+     * ->delete() = METHOD DELETE
+     *
+     * exemplo de uma chamada:
+     * $factoryApis->get('customer','avaible')
+     * Ele ira executar uma chamada get na rota customer/avaible
+     *
+     * @param $method
+     * @param $args
+     * @return mixed
+     */
     public function __call($method, $args) {
         $this->method = strtoupper($method);
         $this->processService($args[0]);
@@ -53,11 +88,19 @@ class FactoryApis extends Requests {
         return $this->{'Call'.ucfirst(strtolower($method))}($args);
     }
 
+    /**
+     * trata e coloca no padrão o nome do serviço e seta a url do endpoint
+     * @param $srvName
+     */
     private function processService($srvName){
         $this->serviceName = str_replace(['@','#'],'/', $srvName);
         $this->setPathUrl(config('app.url_api_endpoint'));
     }
 
+    /**
+     * save o resulta da consuta no cache, que tenha sido solicitado
+     * @param $returnGet
+     */
     private function saveResultInCache( $returnGet ){
         if( !empty( $this->timeCache ) ){
             \DashCache::setTime( $this->timeCache )->create( $this->nameCache, $returnGet );
@@ -66,6 +109,10 @@ class FactoryApis extends Requests {
         $this->nameCache = null;
     }
 
+    /**
+     * obtem o resulta de uma consulta salva no cache
+     * @return bool
+     */
     private function getResultInCache(){
 
         $return    = FALSE;
@@ -98,6 +145,11 @@ class FactoryApis extends Requests {
 
     }
 
+    /**
+     * método mágico get
+     * @param null $path
+     * @return array|bool|mixed|string|null
+     */
     public function CallGet($path=null){//dd($this->getHeader(),$this->processPath($path), $this->processOptions());
 
         $return = $this->getResultInCache();
@@ -125,24 +177,49 @@ class FactoryApis extends Requests {
 
     }
 
+    /**
+     * obtem a mensagem de erro
+     * @return |null
+     */
     public function getError(){
         return $this->msgError;
     }
 
+    /**
+     * método mágico post
+     * @param null $path
+     * @return array|mixed|null
+     */
     public function CallPost($path=null) {
         return $this->CallPut($path);
     }
 
+    /**
+     * método mágico patch
+     * @param null $path
+     * @return array|mixed|null
+     */
     public function CallPatch($path=null) {
         return $this->CallPut($path);
     }
 
+    /**
+     * informa que o resulta deverá ser cacheado
+     * @param $nameCache
+     * @param int $minutes
+     * @return $this
+     */
     public function onCache($nameCache, $minutes=5){
         $this->setHeader(config('app.x_header_cache_name'),$nameCache);
         $this->setHeader(config('app.x_header_cache_time'),$minutes);
         return $this;
     }
 
+    /**
+     * método mágico put
+     * @param null $path
+     * @return array|mixed|null
+     */
     public function CallPut($path=null) {//dd($this->processPath($path), $this->processOptions());
 
         $url    = $this->processPath($path);
@@ -155,6 +232,11 @@ class FactoryApis extends Requests {
         return $return;
     }
 
+    /**
+     * método mágico delete
+     * @param null $path
+     * @return array|mixed|null
+     */
     public function CallDelete($path=null) {//dd($this->processPath($path), $this->processOptions());
 
         $url = $this->processPath($path);
@@ -168,10 +250,13 @@ class FactoryApis extends Requests {
         return $return;
     }
 
+    /**
+     * trata possiveis retorno de erro do endpoint
+     * @param $return
+     */
     private function processError($return){
         if( is_array( $return ) ){
 
-            #returno do DF
             if( array_has( $return, 'error.status_code' ) ){
                 try{
                     $message = array_get( $return, 'error.message' );
@@ -200,10 +285,11 @@ class FactoryApis extends Requests {
         }
     }
 
-    public function CallGetUrl($path){
-        return $this->processPath($path);
-    }
-
+    /**
+     * Monta a url que será executada
+     * @param null $path
+     * @return string
+     */
     private function processPath($path=null){
 
         $queryString = '';
@@ -229,6 +315,10 @@ class FactoryApis extends Requests {
         return $this->pathUrl.'/'.str_replace(['@','/'],'/', $path).$queryString;
     }
 
+    /**
+     * prepara os dados request que serão enviados
+     * @return mixed
+     */
     private function processOptions(){
 
         $this->setOptions();
@@ -248,6 +338,9 @@ class FactoryApis extends Requests {
         return $this->options;
     }
 
+    /**
+ * seta as opçoes do header
+     */
     private function setOptions(){
         $this->options = [ 'header' => $this->getHeader() ];
     }

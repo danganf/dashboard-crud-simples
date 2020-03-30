@@ -49,6 +49,16 @@
  *   @SWG\Response(response=400, description="operation not completed"),
  * )
  *
+ * @SWG\Put(
+ *   path="order/{id}/status/{newstatus}",
+ *   summary="Update new status Order",
+ *   operationId="order-updt-new-status",
+ *   tags={"Order"},
+ *   @SWG\Parameter(in="path", name="id", description="Order id", type="string", required=true ),
+ *   @SWG\Parameter(in="path", name="newstatus", description="New Status", type="string",enum={"pago","cancelado"}, required=true ),
+ *   @SWG\Response(response=200, description="successful operation")
+ * )
+ *
  * @SWG\Delete(
  *   path="order/{id}",
  *   summary="Delete Order",

@@ -19,6 +19,11 @@ class OrderRepository extends RepositoryAbstract
         'cancelado' => 'Cancelado'
     ];
 
+    /**
+     * RETORNA PEDIDOS CADASTRADOS COM BASE NOS FILTROS FORNECIDOS
+     * @param array $filterArray
+     * @return array
+     */
     public function filter( $filterArray = [] ){
 
         $order  = array_get( $filterArray, 'sort'   , 'id' );
@@ -64,6 +69,7 @@ class OrderRepository extends RepositoryAbstract
     }
 
     /**
+     * CRIA UM NOVO PEDIDO
      * @param JsonAbstract $json
      * @param null $id
      * @return array
@@ -159,6 +165,7 @@ class OrderRepository extends RepositoryAbstract
     }
 
     /**
+     * REMOVE UM PEDIDO
      * @param $id
      * @param null $fields
      * @return bool
@@ -179,6 +186,11 @@ class OrderRepository extends RepositoryAbstract
         return $return;
     }
 
+    /**
+     * ATUALIZA UM PEDIDO PARA UM NOVO STATUS
+     * @param $newStatus
+     * @return bool
+     */
     public function updateStatus( $newStatus ){
         $return = FALSE;
         if( !$this->fails() ){
@@ -199,6 +211,11 @@ class OrderRepository extends RepositoryAbstract
         return $return;
     }
 
+    /**
+     * REMOVE PEDIDOS EM LOTE
+     * @param JsonAbstract $json
+     * @return bool
+     */
     public function deleteInBatch( JsonAbstract $json ){
 
         DB::beginTransaction();

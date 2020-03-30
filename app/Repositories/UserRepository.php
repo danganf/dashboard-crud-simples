@@ -13,6 +13,7 @@ class UserRepository extends RepositoryAbstract
     }
 
     /**
+     * VERIFICA A EXISTENCIA DE UM USUARIO COM BASE EM LOGIN E SENHA
      * @param $login
      * @param $pass
      * @return bool

@@ -12,6 +12,11 @@ class CustomerRepository extends RepositoryAbstract
         parent::__construct( __CLASS__ );
     }
 
+    /**
+     * RETORNA CLIENTES ATIVOS
+     * @param array $filterArray
+     * @return array
+     */
     public function getAvaible( $filterArray = [] ){
 
         $filter['status'] = 'S';
@@ -24,6 +29,11 @@ class CustomerRepository extends RepositoryAbstract
         return $this->filter( $filter );
     }
 
+    /**
+     * RETORNA OS CLIENTES CADASTRADOS, DEPENDENDO DO FILTRO FORNECIDO
+     * @param array $filterArray
+     * @return array
+     */
     public function filter( $filterArray = [] ){
 
         $order  = array_get( $filterArray, 'sort'   , 'id' );
@@ -75,6 +85,12 @@ class CustomerRepository extends RepositoryAbstract
 
     }
 
+    /**
+     * CRIA OU ATUALIZA UM CLIENTE
+     * @param JsonAbstract $jsonValues
+     * @param null $id
+     * @return bool
+     */
     public function createOrUpdate(JsonAbstract $jsonValues, $id=null)
     {
         $return = FALSE;
@@ -114,6 +130,11 @@ class CustomerRepository extends RepositoryAbstract
         return $return;
     }
 
+    /**
+     * REMOVE CLIENTES EM LOTE
+     * @param JsonAbstract $json
+     * @return bool
+     */
     public function deleteInBatch( JsonAbstract $json ){
         $this->getModel()->whereIn( 'id', $json->get('ids') )->delete();
         return TRUE;

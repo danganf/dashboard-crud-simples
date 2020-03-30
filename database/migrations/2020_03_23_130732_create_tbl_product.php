@@ -19,7 +19,6 @@ class CreateTblProduct extends Migration
             $table->string('name', 80)->index();
             $table->string('sku', 50)->unique();
             $table->float('price', 10, 2)->index();
-            $table->integer('stock')->default(0)->nullable();
             $table->boolean("status")->index()->default(1);
             $table->timestamps();
         });

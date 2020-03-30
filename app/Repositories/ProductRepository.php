@@ -12,6 +12,11 @@ class ProductRepository extends RepositoryAbstract
         return $this;
     }
 
+    /**
+     * RETORNA PRODUTOS ATIVOS
+     * @param array $filterArray
+     * @return array
+     */
     public function getAvaible( $filterArray = [] ){
 
         $filter['status'] = 'S';
@@ -25,6 +30,11 @@ class ProductRepository extends RepositoryAbstract
         return $this->filter( $filter );
     }
 
+    /**
+     * RETORNA OS PRODUTOS CADASTRADOS COM BASE NOS FILTROS ENVIADOS
+     * @param array $filterArray
+     * @return array
+     */
     public function filter( $filterArray = [] ){
 
         $limit = array_get( $filterArray, 'limit', 0 );
@@ -70,6 +80,12 @@ class ProductRepository extends RepositoryAbstract
 
     }
 
+    /**
+     * CRIA OU ATUALIZA UM PRODUTO
+     * @param JsonAbstract $jsonValues
+     * @param null $sku
+     * @return bool
+     */
     public function createOrUpdate(JsonAbstract $jsonValues, $sku=null)
     {
         $return = FALSE;
@@ -108,20 +124,11 @@ class ProductRepository extends RepositoryAbstract
         return $return;
     }
 
-    public function stockIn( $sku, $qtd )
-    {
-        $return = FALSE;
-        $qtd    = (int) $qtd;
-        if( $qtd > 0 ) {
-            $this->findBy('sku', $sku);
-            if (!$this->fails()) {
-                $this->getModel()->increment('stock', $qtd);
-                $return = TRUE;
-            }
-        }
-        return $return;
-    }
-
+    /**
+     * REMOVE UM PRODUTO EM LOTE
+     * @param JsonAbstract $json
+     * @return bool
+     */
     public function deleteInBatch( JsonAbstract $json ){
         $this->getModel()->whereIn( 'id', $json->get('ids') )->delete();
         return TRUE;

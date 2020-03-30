@@ -12,7 +12,6 @@ class Product extends Model
         'name',
         'sku',
         'price',
-        'stock',
         'status'
     ];
 }
