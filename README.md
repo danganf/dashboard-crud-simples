@@ -1,6 +1,6 @@
 ## Ambiente utilizado
 
-Ambiente construindo utilizando containner, via docker.
+Ambiente construindo utilizando container, via docker.
 
 > Mysql 5.7.24
 
