@@ -25,16 +25,16 @@ Execute os seguintes passos abaixo, em um console, após clonar esse repositóri
 > php artisan l5-swagger:generate
 
 Agora, configure o arquivo `app/database.php` e defina o nome da base de dados.
-Lembre-se que o usuário necessitará de acessos *root* para criar as tabelas
+Lembre-se que o usuário necessitará de acessos *root* para criar as tabelas.
 
 > php artisan migrate:install
 
 > php artisan migrate
 
-Se ocorreu tudo bem, as tabelas foram criadas no banco definido no `app/database.php`
+Se ocorreu tudo bem, as tabelas foram criadas no banco definido no `app/database.php`.
 
-Agora, execute o comando abaixo para criar registros de teste, juntamente do 
-usuário **admin** para acessar o dashboard
+Agora, execute o comando abaixo para criar registros de teste, assim como o 
+usuário **admin** para acessar o dashboard.
 
 > php artisan db:seed
 
@@ -49,7 +49,9 @@ Agora vá ao navegador e acesso o sistema, utilizando as seguintes credências d
 ## Documentação das APIS
 
 O sistema foi construindo separando front-end e back-end, mesmo que ambos esteja
-no mesmo repositórios. Foi criado uma abstração que facilitará essa separação no
-futuro. Essa abstração foi feita em cima da classe: *App\MyClass\FactoryApis*
+no mesmo repositório. 
+
+Foi criado uma abstração que facilitará essa separação no futuro. 
+A abstração foi feita em cima da classe: *App\MyClass\FactoryApis*
 
 Url da documentação: `_DNS_/api/documentation`
