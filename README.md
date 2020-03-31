@@ -18,20 +18,20 @@ Execute os seguintes passos abaixo, em um console, após clonar esse repositóri
 
 > composer install
 
-> cp .env.example .env
+> cp envvars\local.env .env
 
 > php artisan key:generate
 
 > php artisan l5-swagger:generate
 
-Agora, configure o arquivo `app/database.php` e defina o nome da base de dados.
+Agora, configure o arquivo `config/database.php` e defina o nome da base de dados.
 Lembre-se que o usuário necessitará de acessos *root* para criar as tabelas.
 
 > php artisan migrate:install
 
 > php artisan migrate
 
-Se ocorreu tudo bem, as tabelas foram criadas no banco definido no `app/database.php`.
+Se ocorreu tudo bem, as tabelas foram criadas no banco definido no `config/database.php`.
 
 Agora, execute o comando abaixo para criar registros de teste, assim como o 
 usuário **admin** para acessar o dashboard.
@@ -39,6 +39,17 @@ usuário **admin** para acessar o dashboard.
 > php artisan db:seed
 
 Se tudo deu certo, as tabelas de catalog, customer e user foram populadas.
+
+Próximo passo será configurar o dns da api de backend. Acesse o arquivo `config/app.php`
+e busque a chave *url_api_endpoint*. 
+
+Existe um paramêtro no .env (URL_API_ENDPOINT) referente 
+ao endereço local. Altere nesse arquivo também, caso seja diferente do de produção 
+ou remove a linha para herdar o do config/app.php.
+
+Feito isso, rode o seguinte comando no terminal:
+
+> php artisan config:clear
 
 Agora vá ao navegador e acesso o sistema, utilizando as seguintes credências de acesso:
 
